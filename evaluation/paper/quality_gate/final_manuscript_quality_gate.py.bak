@@ -1,0 +1,887 @@
+import json
+import os
+import re
+from datetime import datetime, timezone
+
+
+class FinalManuscriptQualityGate:
+    """
+    Final quality gate for the CRME evidence-backed manuscript.
+
+    Validates:
+    - manuscript section completeness
+    - evidence consistency
+    - numeric consistency
+    - component ranking consistency
+    - claim safety
+    - LaTeX structural integrity
+    - reproducibility
+    - manifest integrity
+    """
+
+    REQUIRED_SECTIONS = [
+        "Abstract",
+        "Introduction",
+        "Evaluation Design",
+        "Results",
+        "Ablation Study",
+        "Statistical Analysis",
+        "Discussion",
+        "Threats to Validity",
+        "Reproducibility",
+    ]
+
+    REQUIRED_MANIFEST_KEYS = [
+        "created_at",
+        "manuscript_type",
+        "outputs",
+        "sections",
+        "sources",
+    ]
+
+    REQUIRED_LATEX_COMMANDS = [
+        r"\documentclass",
+        r"\begin{document}",
+        r"\end{document}",
+        r"\maketitle",
+    ]
+
+    def __init__(
+        self,
+        summary_path="evaluation/results/final/evaluation_summary.json",
+        claim_audit_path=(
+            "evaluation/results/final/paper/"
+            "claim_audit/claim_evidence_matrix.json"
+        ),
+        consistency_audit_path=(
+            "evaluation/results/final/paper/"
+            "consistency_audit/q1_consistency_audit.json"
+        ),
+        manuscript_md_path=(
+            "evaluation/results/final/manuscript/"
+            "CRME_MANUSCRIPT.md"
+        ),
+        manuscript_tex_path=(
+            "evaluation/results/final/manuscript/"
+            "CRME_MANUSCRIPT.tex"
+        ),
+        manifest_path=(
+            "evaluation/results/final/manuscript/"
+            "manuscript_manifest.json"
+        ),
+        output_dir=(
+            "evaluation/results/final/manuscript/"
+            "quality_gate"
+        ),
+    ):
+        self.summary_path = summary_path
+        self.claim_audit_path = claim_audit_path
+        self.consistency_audit_path = consistency_audit_path
+        self.manuscript_md_path = manuscript_md_path
+        self.manuscript_tex_path = manuscript_tex_path
+        self.manifest_path = manifest_path
+        self.output_dir = output_dir
+
+        os.makedirs(self.output_dir, exist_ok=True)
+
+    # =========================================================
+    # UTILITIES
+    # =========================================================
+
+    def _load_json(self, path):
+        with open(path, "r", encoding="utf-8") as file:
+            return json.load(file)
+
+    def _load_text(self, path):
+        with open(path, "r", encoding="utf-8") as file:
+            return file.read()
+
+    # =========================================================
+    # SECTION COMPLETENESS
+    # =========================================================
+
+    def _extract_markdown_sections(self, text):
+        sections = []
+
+        for match in re.finditer(
+            r"(?m)^#{1,6}\s+(.+?)\s*$",
+            text,
+        ):
+            title = match.group(1).strip()
+
+            title = re.sub(
+                r"^\d+\.\s*",
+                "",
+                title,
+            ).strip()
+
+            sections.append(title)
+
+        return sections
+
+    def _extract_latex_sections(self, text):
+        sections = []
+
+        for match in re.finditer(
+            r"\\section\{([^}]+)\}",
+            text,
+        ):
+            sections.append(match.group(1).strip())
+
+        return sections
+
+    def _normalize_section_name(self, name):
+        name = name.strip().lower()
+        name = re.sub(r"^\d+\.\s*", "", name)
+        name = re.sub(r"[^a-z0-9]+", " ", name)
+        return " ".join(name.split())
+
+    def _check_section_completeness(self):
+        markdown_text = self._load_text(self.manuscript_md_path)
+        latex_text = self._load_text(self.manuscript_tex_path)
+
+        markdown_sections = self._extract_markdown_sections(
+            markdown_text
+        )
+
+        latex_sections = self._extract_latex_sections(
+            latex_text
+        )
+
+        available = set()
+
+        for section in markdown_sections:
+            available.add(
+                self._normalize_section_name(section)
+            )
+
+        for section in latex_sections:
+            available.add(
+                self._normalize_section_name(section)
+            )
+
+        missing = []
+
+        for required in self.REQUIRED_SECTIONS:
+            normalized = self._normalize_section_name(required)
+
+            if normalized not in available:
+                missing.append(required)
+
+        if missing:
+            return {
+                "status": "FAIL",
+                "required_sections": self.REQUIRED_SECTIONS,
+                "missing_sections": missing,
+                "markdown_sections": markdown_sections,
+                "latex_sections": latex_sections,
+            }
+
+        return {
+            "status": "PASS",
+            "required_sections": self.REQUIRED_SECTIONS,
+            "missing_sections": [],
+            "markdown_sections": markdown_sections,
+            "latex_sections": latex_sections,
+        }
+
+    # =========================================================
+    # EVIDENCE CONSISTENCY
+    # =========================================================
+
+    def _check_evidence_consistency(self):
+        summary = self._load_json(self.summary_path)
+        consistency = self._load_json(
+            self.consistency_audit_path
+        )
+
+        checks = []
+
+        consistency_status = consistency.get(
+            "overall_status"
+        )
+
+        checks.append(
+            {
+                "check": "q1_consistency_audit",
+                "status": (
+                    "PASS"
+                    if consistency_status == "PASS"
+                    else "FAIL"
+                ),
+                "value": consistency_status,
+            }
+        )
+
+        experiment_status = summary.get(
+            "experiment",
+            {},
+        ).get("status")
+
+        comparison_status = summary.get(
+            "comparison",
+            {},
+        ).get("status")
+
+        statistics_status = summary.get(
+            "statistics",
+            {},
+        ).get("status")
+
+        checks.append(
+            {
+                "check": "experiment_status",
+                "status": (
+                    "PASS"
+                    if experiment_status == "completed"
+                    else "FAIL"
+                ),
+                "value": experiment_status,
+            }
+        )
+
+        checks.append(
+            {
+                "check": "comparison_status",
+                "status": (
+                    "PASS"
+                    if comparison_status == "completed"
+                    else "FAIL"
+                ),
+                "value": comparison_status,
+            }
+        )
+
+        checks.append(
+            {
+                "check": "statistics_status",
+                "status": (
+                    "PASS"
+                    if statistics_status == "completed"
+                    else "FAIL"
+                ),
+                "value": statistics_status,
+            }
+        )
+
+        overall = (
+            "PASS"
+            if all(
+                item["status"] == "PASS"
+                for item in checks
+            )
+            else "FAIL"
+        )
+
+        return {
+            "status": overall,
+            "checks": checks,
+        }
+
+    # =========================================================
+    # NUMERIC CONSISTENCY
+    # =========================================================
+
+    def _check_numeric_consistency(self):
+        summary = self._load_json(self.summary_path)
+        manuscript = self._load_text(
+            self.manuscript_md_path
+        )
+
+        expected = (
+            summary
+            .get("statistics", {})
+            .get("baseline_metrics", {})
+        )
+
+        extracted = {}
+
+        for metric, value in expected.items():
+            pattern = (
+                rf"\*\*{re.escape(metric.upper())}"
+                rf"\*\*:\s*([0-9]+(?:\.[0-9]+)?)"
+            )
+
+            match = re.search(
+                pattern,
+                manuscript,
+            )
+
+            if match:
+                extracted[metric.upper()] = float(
+                    match.group(1)
+                )
+
+        mismatches = []
+
+        for metric, expected_value in expected.items():
+            actual_value = extracted.get(
+                metric.upper()
+            )
+
+            if actual_value is None:
+                mismatches.append(
+                    {
+                        "metric": metric,
+                        "expected": expected_value,
+                        "actual": None,
+                    }
+                )
+                continue
+
+            if abs(
+                float(expected_value)
+                - float(actual_value)
+            ) > 0.01:
+                mismatches.append(
+                    {
+                        "metric": metric,
+                        "expected": expected_value,
+                        "actual": actual_value,
+                    }
+                )
+
+        return {
+            "status": (
+                "PASS"
+                if not mismatches
+                else "FAIL"
+            ),
+            "expected_metrics": expected,
+            "extracted_metrics": extracted,
+            "mismatches": mismatches,
+        }
+
+    # =========================================================
+    # COMPONENT RANKING
+    # =========================================================
+
+    def _check_component_ranking(self):
+        summary = self._load_json(self.summary_path)
+
+        ranking = (
+            summary
+            .get("statistics", {})
+            .get("component_ranking", [])
+        )
+
+        expected_order = [
+            item.get("component")
+            for item in ranking
+        ]
+
+        expected_values = [
+            item.get("total_degradation")
+            for item in ranking
+        ]
+
+        missing_components = [
+            component
+            for component in expected_order
+            if not component
+        ]
+
+        descending = all(
+            expected_values[index]
+            >= expected_values[index + 1]
+            for index in range(
+                len(expected_values) - 1
+            )
+        )
+
+        status = (
+            "PASS"
+            if (
+                ranking
+                and not missing_components
+                and descending
+            )
+            else "FAIL"
+        )
+
+        return {
+            "status": status,
+            "expected_order": expected_order,
+            "expected_values": expected_values,
+            "missing_components": missing_components,
+            "descending_order": descending,
+        }
+
+    # =========================================================
+    # CLAIM SAFETY
+    # =========================================================
+
+    def _check_claim_safety(self):
+        claim_audit = self._load_json(
+            self.claim_audit_path
+        )
+
+        unsafe_claims = []
+
+        for claim in claim_audit.get(
+            "claims",
+            [],
+        ):
+            status = claim.get("status")
+
+            if status in {
+                "NOT_ESTABLISHED",
+                "UNSUPPORTED",
+            }:
+                claim_id = claim.get(
+                    "claim_id"
+                )
+
+                manuscript = self._load_text(
+                    self.manuscript_md_path
+                ).lower()
+
+                claim_text = claim.get(
+                    "claim",
+                    "",
+                ).lower()
+
+                if claim_text and claim_text in manuscript:
+                    unsafe_claims.append(
+                        {
+                            "claim_id": claim_id,
+                            "claim": claim.get(
+                                "claim"
+                            ),
+                            "status": status,
+                        }
+                    )
+
+        return {
+            "status": (
+                "PASS"
+                if not unsafe_claims
+                else "FAIL"
+            ),
+            "unsafe_claims": unsafe_claims,
+        }
+
+    # =========================================================
+    # LATEX INTEGRITY
+    # =========================================================
+
+    def _check_latex_integrity(self):
+        text = self._load_text(
+            self.manuscript_tex_path
+        )
+
+        checks = []
+
+        document_start = (
+            r"\begin{document}" in text
+        )
+
+        document_end = (
+            r"\end{document}" in text
+        )
+
+        checks.append(
+            {
+                "check": "document_start",
+                "status": (
+                    "PASS"
+                    if document_start
+                    else "FAIL"
+                ),
+            }
+        )
+
+        checks.append(
+            {
+                "check": "document_end",
+                "status": (
+                    "PASS"
+                    if document_end
+                    else "FAIL"
+                ),
+            }
+        )
+
+        begin_pattern = re.compile(
+            r"\\begin\{([^}]+)\}"
+        )
+
+        end_pattern = re.compile(
+            r"\\end\{([^}]+)\}"
+        )
+
+        tokens = []
+
+        for match in re.finditer(
+            r"\\begin\{([^}]+)\}"
+            r"|\\end\{([^}]+)\}",
+            text,
+        ):
+            if match.group(1):
+                tokens.append(
+                    (
+                        "begin",
+                        match.group(1),
+                    )
+                )
+            else:
+                tokens.append(
+                    (
+                        "end",
+                        match.group(2),
+                    )
+                )
+
+        stack = []
+        structural_errors = []
+
+        for token_type, environment in tokens:
+
+            if token_type == "begin":
+                stack.append(environment)
+
+            else:
+                if not stack:
+                    structural_errors.append(
+                        {
+                            "type": "unexpected_end",
+                            "environment": environment,
+                        }
+                    )
+                    continue
+
+                expected = stack.pop()
+
+                if expected != environment:
+                    structural_errors.append(
+                        {
+                            "type": "mismatched_end",
+                            "expected": expected,
+                            "actual": environment,
+                        }
+                    )
+
+        if stack:
+            structural_errors.extend(
+                {
+                    "type": "unclosed_environment",
+                    "environment": environment,
+                }
+                for environment in stack
+            )
+
+        checks.append(
+            {
+                "check": "environment_balance",
+                "status": (
+                    "PASS"
+                    if not structural_errors
+                    else "FAIL"
+                ),
+                "structural_errors": structural_errors,
+                "token_count": len(tokens),
+            }
+        )
+
+        missing_commands = [
+            command
+            for command in self.REQUIRED_LATEX_COMMANDS
+            if command not in text
+        ]
+
+        checks.append(
+            {
+                "check": "required_commands",
+                "status": (
+                    "PASS"
+                    if not missing_commands
+                    else "FAIL"
+                ),
+                "missing_commands": missing_commands,
+            }
+        )
+
+        overall = (
+            "PASS"
+            if all(
+                item["status"] == "PASS"
+                for item in checks
+            )
+            else "FAIL"
+        )
+
+        return {
+            "status": overall,
+            "checks": checks,
+        }
+
+    # =========================================================
+    # REPRODUCIBILITY
+    # =========================================================
+
+    def _check_reproducibility(self):
+        manifest = self._load_json(
+            self.manifest_path
+        )
+
+        manuscript = self._load_text(
+            self.manuscript_md_path
+        )
+
+        required_phrases = [
+            "stored CRME evaluation artifacts",
+            "evaluation pipeline",
+            "Raw evaluation outputs are preserved",
+        ]
+
+        missing_phrases = [
+            phrase
+            for phrase in required_phrases
+            if phrase.lower()
+            not in manuscript.lower()
+        ]
+
+        return {
+            "status": (
+                "PASS"
+                if not missing_phrases
+                else "FAIL"
+            ),
+            "missing_phrases": missing_phrases,
+            "manifest_valid": isinstance(
+                manifest,
+                dict,
+            ),
+        }
+
+    # =========================================================
+    # MANIFEST INTEGRITY
+    # =========================================================
+
+    def _check_manifest_integrity(self):
+        manifest = self._load_json(
+            self.manifest_path
+        )
+
+        missing_keys = [
+            key
+            for key in self.REQUIRED_MANIFEST_KEYS
+            if key not in manifest
+        ]
+
+        return {
+            "status": (
+                "PASS"
+                if not missing_keys
+                else "WARN"
+            ),
+            "missing_keys": missing_keys,
+        }
+
+    # =========================================================
+    # REPORT
+    # =========================================================
+
+    def _write_markdown(self, report, path):
+        lines = []
+
+        lines.append(
+            "# CRME Final Manuscript Quality Report"
+        )
+        lines.append("")
+
+        lines.append(
+            f"**Generated:** "
+            f"{report['created_at']}"
+        )
+
+        lines.append("")
+
+        lines.append(
+            f"**Overall Status:** "
+            f"`{report['overall_status']}`"
+        )
+
+        lines.append("")
+
+        lines.append("## Quality Gate Checks")
+        lines.append("")
+
+        lines.append(
+            "| Check | Status |"
+        )
+        lines.append(
+            "|---|---|"
+        )
+
+        for check_name, result in report[
+            "checks"
+        ].items():
+            lines.append(
+                f"| {check_name} | "
+                f"`{result.get('status')}` |"
+            )
+
+        lines.append("")
+
+        lines.append("## Interpretation")
+        lines.append("")
+
+        if report["overall_status"] == "PASS":
+            lines.append(
+                "All mandatory manuscript quality "
+                "checks passed."
+            )
+        else:
+            lines.append(
+                "The manuscript failed one or more "
+                "mandatory quality checks."
+            )
+
+        lines.append("")
+
+        lines.append(
+            "## Evidence Safety"
+        )
+        lines.append("")
+
+        lines.append(
+            "Unsupported or limited claims must not "
+            "be presented as definitive findings."
+        )
+
+        lines.append("")
+
+        lines.append(
+            "## Reproducibility"
+        )
+        lines.append("")
+
+        lines.append(
+            "The quality gate validates the "
+            "relationship between canonical evaluation "
+            "evidence, claim audit artifacts, manuscript "
+            "content, and reproducibility metadata."
+        )
+
+        with open(
+            path,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            file.write(
+                "\n".join(lines)
+            )
+
+    # =========================================================
+    # MAIN AUDIT
+    # =========================================================
+
+    def audit(self):
+        checks = {
+            "section_completeness": (
+                self._check_section_completeness()
+            ),
+            "evidence_consistency": (
+                self._check_evidence_consistency()
+            ),
+            "numeric_consistency": (
+                self._check_numeric_consistency()
+            ),
+            "component_ranking": (
+                self._check_component_ranking()
+            ),
+            "claim_safety": (
+                self._check_claim_safety()
+            ),
+            "latex_integrity": (
+                self._check_latex_integrity()
+            ),
+            "reproducibility": (
+                self._check_reproducibility()
+            ),
+            "manifest_integrity": (
+                self._check_manifest_integrity()
+            ),
+        }
+
+        mandatory_checks = [
+            "section_completeness",
+            "evidence_consistency",
+            "numeric_consistency",
+            "component_ranking",
+            "claim_safety",
+            "latex_integrity",
+            "reproducibility",
+        ]
+
+        overall_status = (
+            "PASS"
+            if all(
+                checks[name]["status"] == "PASS"
+                for name in mandatory_checks
+            )
+            else "FAIL"
+        )
+
+        report = {
+            "created_at": datetime.now(
+                timezone.utc
+            ).isoformat(),
+            "overall_status": overall_status,
+            "checks": checks,
+            "evidence": {
+                "summary": self.summary_path,
+                "claim_audit": self.claim_audit_path,
+                "consistency_audit": (
+                    self.consistency_audit_path
+                ),
+                "manuscript_markdown": (
+                    self.manuscript_md_path
+                ),
+                "manuscript_latex": (
+                    self.manuscript_tex_path
+                ),
+                "manuscript_manifest": (
+                    self.manifest_path
+                ),
+            },
+        }
+
+        json_path = os.path.join(
+            self.output_dir,
+            "final_quality_report.json",
+        )
+
+        markdown_path = os.path.join(
+            self.output_dir,
+            "final_quality_report.md",
+        )
+
+        with open(
+            json_path,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            json.dump(
+                report,
+                file,
+                indent=4,
+            )
+
+        self._write_markdown(
+            report,
+            markdown_path,
+        )
+
+        return {
+            "json": json_path,
+            "markdown": markdown_path,
+            "output_dir": self.output_dir,
+            "status": overall_status,
+        }
+
+
+if __name__ == "__main__":
+    result = FinalManuscriptQualityGate().audit()
+    print(result)

@@ -1,0 +1,148 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Background and Motivation}
+
+Modern research activities have become increasingly complex due to the rapid growth of scientific information, computational experiments, collaborative environments, and heterogeneous research artifacts. Researchers continuously generate and consume diverse forms of knowledge, including ideas, hypotheses, datasets, experimental results, software artifacts, and publications.
+
+However, scientific progress is not only represented by final outputs. The evolution of research involves a continuous process of decisions, revisions, experiments, and knowledge refinement. Important contextual information such as why a method was selected, how an assumption changed, or which experiment led to a final conclusion is often distributed across notes, documents, repositories, and communication channels.
+
+As a result, research knowledge is frequently fragmented and difficult to reuse. Existing tools provide valuable support for specific tasks such as document management, workflow execution, semantic search, and artifact tracking, but they rarely provide an integrated representation of the complete research lifecycle.
+
+\subsection{Problem Statement}
+
+Traditional research management approaches are mainly artifact-oriented. They preserve documents, datasets, and experimental outputs but often fail to capture the underlying reasoning process that produces these artifacts.
+
+A typical research workflow contains multiple interconnected elements:
+
+\[
+Research\ Idea
+\rightarrow
+Hypothesis
+\rightarrow
+Method\ Selection
+\rightarrow
+Experiment
+\rightarrow
+Result
+\rightarrow
+Artifact
+\rightarrow
+Publication
+\]
+
+Nevertheless, conventional systems frequently store these elements separately, causing several challenges:
+
+\begin{itemize}
+\item Loss of research context over time.
+\item Difficulty tracing decisions and methodological changes.
+\item Limited understanding of relationships among research entities.
+\item Reduced reproducibility of research outcomes.
+\end{itemize}
+
+Therefore, a new approach is required to model research knowledge as an evolving memory structure rather than a static collection of documents.
+
+\subsection{Research Gap}
+
+Existing research management approaches address important but isolated dimensions of scientific activities.
+
+Knowledge Management Systems improve knowledge organization but generally lack temporal research reasoning.
+
+Scientific workflow systems support computational execution but focus mainly on operational processes.
+
+Knowledge Graph approaches provide semantic relationships but usually do not model research evolution and decision history.
+
+Provenance systems improve artifact traceability but often ignore cognitive aspects of scientific decision-making.
+
+Recent AI memory systems enable persistent contextual interaction but are not specifically designed for scientific knowledge lifecycle management.
+
+Consequently, there remains a gap in developing a unified research memory framework capable of integrating:
+
+\begin{itemize}
+\item semantic knowledge organization,
+\item temporal research continuity,
+\item decision traceability,
+\item artifact provenance,
+\item lifecycle management.
+\end{itemize}
+
+
+\subsection{Proposed Approach}
+
+To address this gap, this paper introduces the Cognitive Research Memory Engine (CRME), a modular framework designed to represent and manage evolving research knowledge.
+
+CRME introduces a research memory paradigm in which scientific activities are modeled as interconnected Research Objects containing:
+
+\begin{itemize}
+\item semantic information,
+\item relationships,
+\item temporal context,
+\item provenance history.
+\end{itemize}
+
+The framework integrates:
+
+\begin{itemize}
+\item Research Object Model for structured representation of research entities.
+\item Session Engine for preserving temporal continuity.
+\item Knowledge Graph Engine for semantic relationship modeling.
+\item Project Engine for research lifecycle management.
+\item Provenance Layer for artifact lineage and reproducibility.
+\end{itemize}
+
+
+\subsection{Research Questions}
+
+This research investigates the following questions:
+
+\textbf{RQ1:}
+Can a unified research memory architecture improve knowledge organization compared with conventional memory approaches?
+
+\textbf{RQ2:}
+Can temporal session-based memory preserve research decisions and contextual continuity?
+
+\textbf{RQ3:}
+Can provenance-aware modeling improve research artifact reproducibility?
+
+\textbf{RQ4:}
+Can the proposed framework maintain scalability as research memory size increases?
+
+
+\subsection{Contributions}
+
+The main contributions of this paper are summarized as follows:
+
+\begin{enumerate}
+
+\item \textbf{Unified Research Memory Architecture:}
+We propose CRME, a modular architecture integrating semantic representation, temporal memory, decision tracking, and provenance management.
+
+\item \textbf{Research Object-Centric Representation:}
+We introduce a structured model for representing research entities and their relationships throughout the research lifecycle.
+
+\item \textbf{Temporal and Provenance-Aware Memory:}
+We provide mechanisms for preserving research evolution, decision history, and artifact lineage.
+
+\item \textbf{Evaluation Framework:}
+We introduce the Structured Cognitive Research Benchmark (SRCB) and evaluate CRME through benchmark comparison, ablation analysis, and scalability experiments.
+
+\end{enumerate}
+
+
+\subsection{Paper Organization}
+
+The remainder of this paper is organized as follows:
+
+Section 2 reviews related work in knowledge management, scientific workflows, knowledge graphs, provenance systems, and AI memory architectures.
+
+Section 3 presents the CRME framework methodology and architecture.
+
+Section 4 describes the experimental methodology and evaluation protocol.
+
+Section 5 presents results and discussion.
+
+Section 6 discusses limitations and threats to validity.
+
+Section 7 concludes the paper and outlines future research directions.
+
+

@@ -1,0 +1,40 @@
+{
+    "manifest_version": "1.0",
+    "created_at": "2026-07-19T07:31:11.596565+00:00",
+    "manuscript_type": "evidence_backed_research_manuscript",
+    "title": "An Evidence-Backed Evaluation of CRME",
+    "status": "completed",
+    "sources": [
+        "evaluation/results/final/evaluation_summary.json",
+        "evaluation/results/final/paper/claim_audit/claim_evidence_matrix.json",
+        "evaluation/results/final/paper/consistency_audit/q1_consistency_audit.json"
+    ],
+    "sections": [
+        "Abstract",
+        "Introduction",
+        "Evaluation Design",
+        "Results",
+        "Ablation Study",
+        "Statistical Analysis",
+        "Discussion",
+        "Threats to Validity",
+        "Reproducibility",
+        "Evidence Governance",
+        "Conclusion"
+    ],
+    "outputs": {
+        "markdown": "evaluation/results/final/manuscript/CRME_MANUSCRIPT.md",
+        "latex": "evaluation/results/final/manuscript/CRME_MANUSCRIPT.tex",
+        "manifest": "evaluation/results/final/manuscript/manuscript_manifest.json"
+    },
+    "evidence_policy": {
+        "unsupported_claims_allowed": false,
+        "causal_claims_from_ablation": false,
+        "statistical_significance_without_inference": false
+    },
+    "reproducibility": {
+        "raw_evidence_preserved": true,
+        "stored_artifacts_reference": true,
+        "raw_data_modified": false
+    }
+}

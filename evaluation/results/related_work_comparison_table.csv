@@ -1,0 +1,12 @@
+Approach,"Semantic
+Representation","Temporal
+Context","Decision
+History","Artifact
+Provenance","Research
+Lifecycle"
+Knowledge Management Systems,✓,✗,✗,△,△
+Scientific Workflow Systems,△,✗,✗,✓,△
+Knowledge Graph Approaches,✓,△,✗,△,✗
+Provenance Systems,△,△,✗,✓,✗
+AI Memory Systems,✓,✓,△,✗,✗
+CRME,✓,✓,✓,✓,✓

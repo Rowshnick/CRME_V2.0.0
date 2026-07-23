@@ -1,0 +1,94 @@
+{
+    "experiment_id": "EXP-20260718165644",
+    "created_at": "2026-07-18T16:56:44.762756+00:00",
+    "status": "completed",
+    "datasets": [
+        "SRCB_v1_1.1",
+        "CSV_Test_1.0"
+    ],
+    "runs": 2,
+    "results": [
+        {
+            "evaluation_id": "EVAL-20260718165644",
+            "dataset": "SRCB_v1",
+            "benchmark": {
+                "benchmark_id": "BENCH-20260718165644",
+                "dataset": "SRCB_v1",
+                "dataset_type": "synthetic",
+                "runtime_sec": 0.002863,
+                "memory_mb": 0.0,
+                "cpu_time": 0.0,
+                "knowledge_nodes": 50,
+                "relations": 100,
+                "sessions": 10,
+                "memories": 70,
+                "decisions": 20,
+                "goals": 0,
+                "artifacts": 15,
+                "ledger_entries": 20,
+                "ces_score": 0.0,
+                "metadata": {
+                    "engine": "BenchmarkEngine",
+                    "version": "1.6-dev",
+                    "dataset_type": "structured_research_benchmark",
+                    "total_records": 195,
+                    "execution_version": "1.6-dev",
+                    "started_at": "2026-07-18T16:56:44.762816+00:00",
+                    "finished_at": "2026-07-18T16:56:44.765722+00:00"
+                },
+                "timestamp": "2026-07-18T16:56:44.762844",
+                "samples": 50,
+                "processed_objects": 50
+            },
+            "metrics": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 43.33,
+                "ces": 57.71
+            },
+            "started_at": "2026-07-18T16:56:44.762804+00:00",
+            "finished_at": "2026-07-18T16:56:44.765793+00:00",
+            "status": "completed"
+        },
+        {
+            "dataset": "CSV_Test_1.0",
+            "status": "failed",
+            "error": "'list' object has no attribute 'get'"
+        }
+    ],
+    "summary": {
+        "mcs": {
+            "average": 47.5,
+            "min": 47.5,
+            "max": 47.5,
+            "count": 1
+        },
+        "srs": {
+            "average": 100.0,
+            "min": 100,
+            "max": 100,
+            "count": 1
+        },
+        "kgq": {
+            "average": 40.0,
+            "min": 40.0,
+            "max": 40.0,
+            "count": 1
+        },
+        "rrs": {
+            "average": 43.33,
+            "min": 43.33,
+            "max": 43.33,
+            "count": 1
+        },
+        "ces": {
+            "average": 57.71,
+            "min": 57.71,
+            "max": 57.71,
+            "count": 1
+        }
+    },
+    "runtime_sec": 0.010611,
+    "finished_at": "2026-07-18T16:56:44.773419+00:00"
+}

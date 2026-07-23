@@ -1,0 +1,82 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Scientific research is an iterative and knowledge-intensive process in
+which researchers continuously generate ideas, formulate hypotheses,
+conduct experiments, analyze results, and produce scientific artifacts.
+During this process, valuable knowledge is distributed across multiple
+sources including papers, laboratory notes, software repositories,
+discussion records, and project documents. The increasing complexity of
+modern research projects has made maintaining continuity, traceability,
+and reproducibility a significant challenge.
+
+Traditional research management systems mainly focus on document
+organization, workflow execution, or project scheduling. Although these
+approaches provide valuable support for storing and accessing
+information, they generally do not preserve the evolution of research
+reasoning itself. Important elements such as why a decision was made,
+which hypothesis led to an experiment, how results influenced future
+directions, and how artifacts were derived are often lost or remain
+implicitly stored in researchers' personal memory.
+
+Recent advances in knowledge graphs, semantic retrieval, provenance
+models, and generative artificial intelligence have created new
+opportunities for intelligent research assistance. However, existing
+approaches typically address isolated aspects of knowledge management.
+Workflow systems focus on computational execution, semantic systems
+emphasize information representation, and retrieval-based approaches
+mainly improve access to existing documents. A unified framework for
+maintaining persistent research memory across the complete research
+lifecycle remains insufficiently explored.
+
+This work introduces the Cognitive Research Memory Engine (CRME), a
+structured framework designed to address the problem of research
+knowledge continuity. Instead of treating research information as
+independent documents, CRME represents research activities as connected
+memory objects containing ideas, hypotheses, decisions, experiments,
+results, artifacts, and publication-related information. These objects
+form a persistent research memory that enables historical reconstruction,
+semantic organization, and provenance-aware retrieval.
+
+The main objective of CRME is not to replace researchers or automate
+scientific discovery completely, but to provide a cognitive memory layer
+that supports researchers during long-term projects. By maintaining
+structured records of research evolution, CRME aims to reduce knowledge
+loss, improve reproducibility, and support more explainable research
+workflows.
+
+
+The main contributions of this paper are summarized as follows:
+
+\begin{itemize}
+
+\item A structured research memory model is introduced, representing
+research activities as interconnected knowledge objects across the
+research lifecycle.
+
+\item A modular architecture for persistent research memory management is
+presented, integrating memory storage, session continuity, semantic
+organization, provenance tracking, and project evolution.
+
+\item A provenance-aware approach is proposed to preserve relationships
+between research decisions, experiments, results, and generated
+artifacts.
+
+\item An implementation-oriented evaluation methodology is defined,
+including capability comparison, component validation, and reproducibility
+considerations.
+
+\end{itemize}
+
+
+The remainder of this paper is organized as follows.
+Section~\ref{sec:related_work} discusses related research management,
+knowledge representation, provenance, and retrieval approaches.
+Section~\ref{sec:methodology} presents the CRME architecture and internal
+research memory model.
+Section~\ref{sec:evaluation} describes the evaluation methodology and
+validation strategy.
+Finally, conclusions and future research directions are discussed.
+
+
+

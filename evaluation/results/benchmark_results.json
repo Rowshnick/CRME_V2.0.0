@@ -1,0 +1,20 @@
+[
+    {
+        "method": "Flat File Memory",
+        "KOS": 0.0,
+        "DTS": 0.0,
+        "RSR": 0.0
+    },
+    {
+        "method": "Structured Documentation",
+        "KOS": 0.4,
+        "DTS": 0.5,
+        "RSR": 0.6
+    },
+    {
+        "method": "CRME",
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    }
+]

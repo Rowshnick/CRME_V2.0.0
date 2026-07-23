@@ -1,0 +1,1004 @@
+{
+    "benchmark": "SRCB_v1.1",
+    "created": "2026-07-18T13:12:45.654747+00:00",
+    "objects": [
+        {
+            "id": "O0",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.653932+00:00"
+        },
+        {
+            "id": "O1",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.653967+00:00"
+        },
+        {
+            "id": "O2",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.653979+00:00"
+        },
+        {
+            "id": "O3",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.653987+00:00"
+        },
+        {
+            "id": "O4",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.653994+00:00"
+        },
+        {
+            "id": "O5",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654002+00:00"
+        },
+        {
+            "id": "O6",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654008+00:00"
+        },
+        {
+            "id": "O7",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654015+00:00"
+        },
+        {
+            "id": "O8",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654021+00:00"
+        },
+        {
+            "id": "O9",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654028+00:00"
+        },
+        {
+            "id": "O10",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654034+00:00"
+        },
+        {
+            "id": "O11",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654040+00:00"
+        },
+        {
+            "id": "O12",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654047+00:00"
+        },
+        {
+            "id": "O13",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654053+00:00"
+        },
+        {
+            "id": "O14",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654059+00:00"
+        },
+        {
+            "id": "O15",
+            "type": "decision",
+            "created": "2026-07-18T13:12:45.654065+00:00"
+        },
+        {
+            "id": "O16",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654071+00:00"
+        },
+        {
+            "id": "O17",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654094+00:00"
+        },
+        {
+            "id": "O18",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654101+00:00"
+        },
+        {
+            "id": "O19",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654107+00:00"
+        },
+        {
+            "id": "O20",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654114+00:00"
+        },
+        {
+            "id": "O21",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654120+00:00"
+        },
+        {
+            "id": "O22",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654126+00:00"
+        },
+        {
+            "id": "O23",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654137+00:00"
+        },
+        {
+            "id": "O24",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654142+00:00"
+        },
+        {
+            "id": "O25",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654149+00:00"
+        },
+        {
+            "id": "O26",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654154+00:00"
+        },
+        {
+            "id": "O27",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654160+00:00"
+        },
+        {
+            "id": "O28",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654166+00:00"
+        },
+        {
+            "id": "O29",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654171+00:00"
+        },
+        {
+            "id": "O30",
+            "type": "decision",
+            "created": "2026-07-18T13:12:45.654177+00:00"
+        },
+        {
+            "id": "O31",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654247+00:00"
+        },
+        {
+            "id": "O32",
+            "type": "decision",
+            "created": "2026-07-18T13:12:45.654259+00:00"
+        },
+        {
+            "id": "O33",
+            "type": "idea",
+            "created": "2026-07-18T13:12:45.654266+00:00"
+        },
+        {
+            "id": "O34",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654278+00:00"
+        },
+        {
+            "id": "O35",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654285+00:00"
+        },
+        {
+            "id": "O36",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654291+00:00"
+        },
+        {
+            "id": "O37",
+            "type": "code_artifact",
+            "created": "2026-07-18T13:12:45.654297+00:00"
+        },
+        {
+            "id": "O38",
+            "type": "decision",
+            "created": "2026-07-18T13:12:45.654303+00:00"
+        },
+        {
+            "id": "O39",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654308+00:00"
+        },
+        {
+            "id": "O40",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654317+00:00"
+        },
+        {
+            "id": "O41",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654324+00:00"
+        },
+        {
+            "id": "O42",
+            "type": "experiment",
+            "created": "2026-07-18T13:12:45.654329+00:00"
+        },
+        {
+            "id": "O43",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654335+00:00"
+        },
+        {
+            "id": "O44",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654341+00:00"
+        },
+        {
+            "id": "O45",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654347+00:00"
+        },
+        {
+            "id": "O46",
+            "type": "decision",
+            "created": "2026-07-18T13:12:45.654352+00:00"
+        },
+        {
+            "id": "O47",
+            "type": "paper",
+            "created": "2026-07-18T13:12:45.654358+00:00"
+        },
+        {
+            "id": "O48",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654363+00:00"
+        },
+        {
+            "id": "O49",
+            "type": "dataset",
+            "created": "2026-07-18T13:12:45.654369+00:00"
+        }
+    ],
+    "relations": [
+        {
+            "source": "O0",
+            "target": "O1",
+            "relation": "references"
+        },
+        {
+            "source": "O0",
+            "target": "O2",
+            "relation": "validates"
+        },
+        {
+            "source": "O1",
+            "target": "O2",
+            "relation": "supports"
+        },
+        {
+            "source": "O1",
+            "target": "O3",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O2",
+            "target": "O3",
+            "relation": "references"
+        },
+        {
+            "source": "O2",
+            "target": "O4",
+            "relation": "supports"
+        },
+        {
+            "source": "O3",
+            "target": "O4",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O3",
+            "target": "O5",
+            "relation": "supports"
+        },
+        {
+            "source": "O4",
+            "target": "O5",
+            "relation": "references"
+        },
+        {
+            "source": "O4",
+            "target": "O6",
+            "relation": "validates"
+        },
+        {
+            "source": "O5",
+            "target": "O6",
+            "relation": "references"
+        },
+        {
+            "source": "O5",
+            "target": "O7",
+            "relation": "validates"
+        },
+        {
+            "source": "O6",
+            "target": "O7",
+            "relation": "references"
+        },
+        {
+            "source": "O6",
+            "target": "O8",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O7",
+            "target": "O8",
+            "relation": "supports"
+        },
+        {
+            "source": "O7",
+            "target": "O9",
+            "relation": "supports"
+        },
+        {
+            "source": "O8",
+            "target": "O9",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O8",
+            "target": "O10",
+            "relation": "validates"
+        },
+        {
+            "source": "O9",
+            "target": "O10",
+            "relation": "supports"
+        },
+        {
+            "source": "O9",
+            "target": "O11",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O10",
+            "target": "O11",
+            "relation": "supports"
+        },
+        {
+            "source": "O10",
+            "target": "O12",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O11",
+            "target": "O12",
+            "relation": "validates"
+        },
+        {
+            "source": "O11",
+            "target": "O13",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O12",
+            "target": "O13",
+            "relation": "validates"
+        },
+        {
+            "source": "O12",
+            "target": "O14",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O13",
+            "target": "O14",
+            "relation": "validates"
+        },
+        {
+            "source": "O13",
+            "target": "O15",
+            "relation": "validates"
+        },
+        {
+            "source": "O14",
+            "target": "O15",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O14",
+            "target": "O16",
+            "relation": "validates"
+        },
+        {
+            "source": "O15",
+            "target": "O16",
+            "relation": "supports"
+        },
+        {
+            "source": "O15",
+            "target": "O17",
+            "relation": "references"
+        },
+        {
+            "source": "O16",
+            "target": "O17",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O16",
+            "target": "O18",
+            "relation": "references"
+        },
+        {
+            "source": "O17",
+            "target": "O18",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O17",
+            "target": "O19",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O18",
+            "target": "O19",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O18",
+            "target": "O20",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O19",
+            "target": "O20",
+            "relation": "validates"
+        },
+        {
+            "source": "O19",
+            "target": "O21",
+            "relation": "references"
+        },
+        {
+            "source": "O20",
+            "target": "O21",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O20",
+            "target": "O22",
+            "relation": "validates"
+        },
+        {
+            "source": "O21",
+            "target": "O22",
+            "relation": "supports"
+        },
+        {
+            "source": "O21",
+            "target": "O23",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O22",
+            "target": "O23",
+            "relation": "supports"
+        },
+        {
+            "source": "O22",
+            "target": "O24",
+            "relation": "validates"
+        },
+        {
+            "source": "O23",
+            "target": "O24",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O23",
+            "target": "O25",
+            "relation": "validates"
+        },
+        {
+            "source": "O24",
+            "target": "O25",
+            "relation": "supports"
+        },
+        {
+            "source": "O24",
+            "target": "O26",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O25",
+            "target": "O26",
+            "relation": "references"
+        },
+        {
+            "source": "O25",
+            "target": "O27",
+            "relation": "validates"
+        },
+        {
+            "source": "O26",
+            "target": "O27",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O26",
+            "target": "O28",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O27",
+            "target": "O28",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O27",
+            "target": "O29",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O28",
+            "target": "O29",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O28",
+            "target": "O30",
+            "relation": "validates"
+        },
+        {
+            "source": "O29",
+            "target": "O30",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O29",
+            "target": "O31",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O30",
+            "target": "O31",
+            "relation": "references"
+        },
+        {
+            "source": "O30",
+            "target": "O32",
+            "relation": "references"
+        },
+        {
+            "source": "O31",
+            "target": "O32",
+            "relation": "validates"
+        },
+        {
+            "source": "O31",
+            "target": "O33",
+            "relation": "references"
+        },
+        {
+            "source": "O32",
+            "target": "O33",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O32",
+            "target": "O34",
+            "relation": "references"
+        },
+        {
+            "source": "O33",
+            "target": "O34",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O33",
+            "target": "O35",
+            "relation": "validates"
+        },
+        {
+            "source": "O34",
+            "target": "O35",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O34",
+            "target": "O36",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O35",
+            "target": "O36",
+            "relation": "references"
+        },
+        {
+            "source": "O35",
+            "target": "O37",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O36",
+            "target": "O37",
+            "relation": "supports"
+        },
+        {
+            "source": "O36",
+            "target": "O38",
+            "relation": "supports"
+        },
+        {
+            "source": "O37",
+            "target": "O38",
+            "relation": "supports"
+        },
+        {
+            "source": "O37",
+            "target": "O39",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O38",
+            "target": "O39",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O38",
+            "target": "O40",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O39",
+            "target": "O40",
+            "relation": "references"
+        },
+        {
+            "source": "O39",
+            "target": "O41",
+            "relation": "supports"
+        },
+        {
+            "source": "O40",
+            "target": "O41",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O40",
+            "target": "O42",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O41",
+            "target": "O42",
+            "relation": "references"
+        },
+        {
+            "source": "O41",
+            "target": "O43",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O42",
+            "target": "O43",
+            "relation": "references"
+        },
+        {
+            "source": "O42",
+            "target": "O44",
+            "relation": "validates"
+        },
+        {
+            "source": "O43",
+            "target": "O44",
+            "relation": "references"
+        },
+        {
+            "source": "O43",
+            "target": "O45",
+            "relation": "supports"
+        },
+        {
+            "source": "O44",
+            "target": "O45",
+            "relation": "supports"
+        },
+        {
+            "source": "O44",
+            "target": "O46",
+            "relation": "references"
+        },
+        {
+            "source": "O45",
+            "target": "O46",
+            "relation": "validates"
+        },
+        {
+            "source": "O45",
+            "target": "O47",
+            "relation": "validates"
+        },
+        {
+            "source": "O46",
+            "target": "O47",
+            "relation": "supports"
+        },
+        {
+            "source": "O46",
+            "target": "O48",
+            "relation": "validates"
+        },
+        {
+            "source": "O47",
+            "target": "O48",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O47",
+            "target": "O49",
+            "relation": "derived_from"
+        },
+        {
+            "source": "O48",
+            "target": "O49",
+            "relation": "depends_on"
+        },
+        {
+            "source": "O48",
+            "target": "O0",
+            "relation": "supports"
+        },
+        {
+            "source": "O49",
+            "target": "O0",
+            "relation": "validates"
+        },
+        {
+            "source": "O49",
+            "target": "O1",
+            "relation": "references"
+        }
+    ],
+    "sessions": [
+        {
+            "id": "S0",
+            "type": "research_session",
+            "status": "completed"
+        },
+        {
+            "id": "S1",
+            "type": "experiment_session",
+            "status": "completed"
+        },
+        {
+            "id": "S2",
+            "type": "research_session",
+            "status": "completed"
+        },
+        {
+            "id": "S3",
+            "type": "experiment_session",
+            "status": "completed"
+        },
+        {
+            "id": "S4",
+            "type": "review_session",
+            "status": "completed"
+        },
+        {
+            "id": "S5",
+            "type": "experiment_session",
+            "status": "completed"
+        },
+        {
+            "id": "S6",
+            "type": "experiment_session",
+            "status": "completed"
+        },
+        {
+            "id": "S7",
+            "type": "experiment_session",
+            "status": "completed"
+        },
+        {
+            "id": "S8",
+            "type": "research_session",
+            "status": "completed"
+        },
+        {
+            "id": "S9",
+            "type": "research_session",
+            "status": "completed"
+        }
+    ],
+    "decisions": [
+        {
+            "id": "D0",
+            "session": "S0",
+            "linked_object": "O0"
+        },
+        {
+            "id": "D1",
+            "session": "S1",
+            "linked_object": "O1"
+        },
+        {
+            "id": "D2",
+            "session": "S2",
+            "linked_object": "O2"
+        },
+        {
+            "id": "D3",
+            "session": "S3",
+            "linked_object": "O3"
+        },
+        {
+            "id": "D4",
+            "session": "S4",
+            "linked_object": "O4"
+        },
+        {
+            "id": "D5",
+            "session": "S5",
+            "linked_object": "O5"
+        },
+        {
+            "id": "D6",
+            "session": "S6",
+            "linked_object": "O6"
+        },
+        {
+            "id": "D7",
+            "session": "S7",
+            "linked_object": "O7"
+        },
+        {
+            "id": "D8",
+            "session": "S8",
+            "linked_object": "O8"
+        },
+        {
+            "id": "D9",
+            "session": "S9",
+            "linked_object": "O9"
+        },
+        {
+            "id": "D10",
+            "session": "S0",
+            "linked_object": "O10"
+        },
+        {
+            "id": "D11",
+            "session": "S1",
+            "linked_object": "O11"
+        },
+        {
+            "id": "D12",
+            "session": "S2",
+            "linked_object": "O12"
+        },
+        {
+            "id": "D13",
+            "session": "S3",
+            "linked_object": "O13"
+        },
+        {
+            "id": "D14",
+            "session": "S4",
+            "linked_object": "O14"
+        },
+        {
+            "id": "D15",
+            "session": "S5",
+            "linked_object": "O15"
+        },
+        {
+            "id": "D16",
+            "session": "S6",
+            "linked_object": "O16"
+        },
+        {
+            "id": "D17",
+            "session": "S7",
+            "linked_object": "O17"
+        },
+        {
+            "id": "D18",
+            "session": "S8",
+            "linked_object": "O18"
+        },
+        {
+            "id": "D19",
+            "session": "S9",
+            "linked_object": "O19"
+        }
+    ],
+    "artifacts": [
+        {
+            "id": "A0",
+            "type": "report",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A1",
+            "type": "dataset",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A2",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A3",
+            "type": "report",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A4",
+            "type": "figure",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A5",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A6",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A7",
+            "type": "report",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A8",
+            "type": "report",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A9",
+            "type": "dataset",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A10",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A11",
+            "type": "dataset",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A12",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A13",
+            "type": "code",
+            "version": "1.0",
+            "validated": true
+        },
+        {
+            "id": "A14",
+            "type": "figure",
+            "version": "1.0",
+            "validated": true
+        }
+    ]
+}

@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{longtable}
+
+\title{An Evidence-Backed Evaluation of CRME}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This manuscript presents an evidence-backed evaluation of the Cognitive Research Memory Engine (CRME), a structured research-memory architecture designed to organize and preserve research evidence, sessions, decisions, relations, and artifacts.
+The evaluation was conducted across 2 datasets using 5 evaluation metrics and was followed by component-level ablation analysis.
+The comparative evaluation identified SRCB\_v1 as the best-performing dataset across the reported metrics.
+The findings are interpreted as descriptive and comparative evidence. No inferential statistical test or confidence interval was included in the current evidence package.
+\end{abstract}
+
+\section{Introduction}
+Modern research workflows generate heterogeneous information, including experimental results, project decisions, sessions, relationships, and digital artifacts.
+Without structured memory mechanisms, important research context can become fragmented across sessions and tools.
+CRME addresses this problem through a structured research-memory architecture intended to preserve and organize research evidence while maintaining traceability between raw evaluation outputs and higher-level research artifacts.
+
+\section{Evaluation Design}
+The evaluation used 2 datasets and 5 evaluation metrics.
+The evaluation pipeline consisted of experiment execution, dataset comparison, component ablation analysis, and statistical and descriptive evidence aggregation.
+
+\begin{itemize}
+\item MCS
+\item SRS
+\item KGQ
+\item RRS
+\item CES
+\end{itemize}
+
+\section{Results}
+The comparative evaluation identified SRCB\_v1 as the best-performing dataset across all reported metrics.
+\begin{table}[htbp]
+\centering
+\caption{Baseline Performance of CRME}
+\label{tab:crme-baseline-performance}
+\begin{tabular}{lc}
+\toprule
+Metric & Score \\
+\midrule
+MCS & 47.5 \\
+SRS & 100 \\
+KGQ & 40 \\
+RRS & 43.33 \\
+CES & 57.71 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Ablation Study}
+The ablation analysis evaluated 4 architectural components under 5 configurations.
+The observed ranking supports comparative component contribution analysis. It should not be interpreted as a definitive causal decomposition of architectural importance.
+\begin{table}[htbp]
+\centering
+\caption{Component Contribution Based on Ablation}
+\label{tab:crme-ablation-ranking}
+\begin{tabular}{lcc}
+\toprule
+Rank & Component & Aggregate Degradation \\
+\midrule
+1 & decisions & 52.08 \\
+2 & relations & 50 \\
+3 & sessions & 20.83 \\
+4 & artifacts & 9.38 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Statistical Analysis}
+The current evidence package contains descriptive baseline metrics and component-level degradation values.
+No inferential statistical test, confidence interval, or hypothesis test is currently included in the evidence package.
+Accordingly, the present findings should be interpreted as descriptive and comparative rather than as statistically significant evidence of superiority over a baseline system.
+
+\section{Discussion}
+The results indicate heterogeneous contribution across the evaluated CRME components.
+The observed ranking should be understood as empirical comparative evidence rather than definitive causal estimates.
+
+\section{Threats to Validity}
+The current evidence package does not include inferential statistical testing or confidence interval estimation.
+The ablation results provide comparative evidence of component contribution but do not establish definitive causal importance.
+Generalization to other datasets and research workflows requires further validation.
+
+\section{Reproducibility}
+All reported results are derived from stored CRME evaluation artifacts.
+The evaluation pipeline preserves the relationship between raw evidence, aggregated summaries, paper tables, figures, and claim-level evidence.
+The Q1 consistency audit completed with overall status \texttt{PASS}.
+Raw evaluation outputs are preserved and are not modified by the paper generation layer.
+
+\section{Conclusion}
+This evidence-backed evaluation establishes a reproducible descriptive baseline for CRME across the currently evaluated datasets and metrics.
+The comparative and ablation results indicate heterogeneous observed contribution across the evaluated architectural components.
+Stronger claims regarding statistical superiority or definitive causal importance require additional experimental and inferential validation.
+
+\end{document}

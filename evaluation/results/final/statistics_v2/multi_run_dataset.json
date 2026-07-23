@@ -1,0 +1,30 @@
+{
+    "created_at": "2026-07-19T11:51:22.011300+00:00",
+    "dataset_name": "crme_multi_run_evaluation",
+    "governance": {
+        "canonical_evidence_mutated": false,
+        "read_only_ingestion": true,
+        "synthetic_metrics_generated": false
+    },
+    "runs": [
+        {
+            "run_id": "canonical-baseline-001",
+            "dataset": "crme_internal",
+            "scenario": "canonical_evaluation",
+            "configuration": "crme",
+            "seed": null,
+            "metrics": {
+                "MCS": 47.5,
+                "SRS": 100.0,
+                "KGQ": 40.0,
+                "RRS": 43.33,
+                "CES": 57.71
+            },
+            "source": "canonical_evaluation_summary",
+            "metadata": {
+                "canonical": true,
+                "read_only": true
+            }
+        }
+    ]
+}

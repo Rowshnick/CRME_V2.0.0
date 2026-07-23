@@ -1,0 +1,84 @@
+{
+    "created_at": "2026-07-19T07:35:27.735682+00:00",
+    "source": "evaluation/results/final/evaluation_summary.json",
+    "audit_status": "completed",
+    "claims": [
+        {
+            "claim_id": "C001",
+            "claim": "CRME has a measurable baseline performance profile across multiple evaluation metrics.",
+            "evidence": [
+                "evaluation_summary.json",
+                "statistics.baseline_metrics"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT"
+        },
+        {
+            "claim_id": "C002",
+            "claim": "The decisions component exhibited the largest aggregate degradation under the evaluated ablation settings.",
+            "evidence": [
+                "statistics.component_ranking",
+                "component=decisions",
+                "total_degradation=52.08"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT"
+        },
+        {
+            "claim_id": "C003",
+            "claim": "The relations component ranked second in aggregate ablation degradation.",
+            "evidence": [
+                "statistics.component_ranking",
+                "component=relations",
+                "total_degradation=50.0"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT"
+        },
+        {
+            "claim_id": "C004",
+            "claim": "The sessions component exhibited a lower aggregate degradation than the two highest-ranked components.",
+            "evidence": [
+                "statistics.component_ranking",
+                "component=sessions",
+                "total_degradation=20.83"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT"
+        },
+        {
+            "claim_id": "C005",
+            "claim": "The artifacts component exhibited the lowest aggregate degradation among the evaluated components.",
+            "evidence": [
+                "statistics.component_ranking",
+                "component=artifacts",
+                "total_degradation=9.38"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT"
+        },
+        {
+            "claim_id": "C006",
+            "claim": "The current evidence does not establish that CRME statistically significantly outperforms a baseline system.",
+            "evidence": [
+                "evaluation_summary.json",
+                "absence_of_inferential_statistics"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT",
+            "note": "No inferential statistical test, confidence interval, or hypothesis test is present in the current evidence package."
+        },
+        {
+            "claim_id": "C007",
+            "claim": "The evaluated component ranking provides comparative evidence of heterogeneous component contribution but does not establish definitive causal importance.",
+            "evidence": [
+                "statistics.component_ranking",
+                "ablation_results",
+                "threats_to_validity"
+            ],
+            "status": "SUPPORTED",
+            "strength": "DIRECT",
+            "note": "Ablation results support comparative contribution analysis but should not be interpreted as definitive causal estimates."
+        }
+    ]
+}

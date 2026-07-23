@@ -1,0 +1,210 @@
+{
+    "created_at": "2026-07-19T12:23:50.897715+00:00",
+    "engine": {
+        "name": "CRME Multi-Run Statistical Analyzer",
+        "version": "1.0.0"
+    },
+    "data_governance": {
+        "observed_runs_only": true,
+        "synthetic_observations_generated": false,
+        "canonical_evidence_mutated": false
+    },
+    "run_count": 1,
+    "unique_scenarios": 1,
+    "configurations": [
+        "crme"
+    ],
+    "statistical_readiness": {
+        "status": "SINGLE_RUN_ONLY",
+        "inferential_analysis": false,
+        "descriptive_analysis": true
+    },
+    "descriptive_statistics": {
+        "MCS": {
+            "metric": "MCS",
+            "n": 1,
+            "mean": 47.5,
+            "median": 47.5,
+            "min": 47.5,
+            "max": 47.5,
+            "population_std": 0.0,
+            "population_variance": 0.0,
+            "sample_std": null,
+            "sample_variance": null,
+            "q1": null,
+            "q3": null,
+            "iqr": null,
+            "coefficient_of_variation": null
+        },
+        "SRS": {
+            "metric": "SRS",
+            "n": 1,
+            "mean": 100.0,
+            "median": 100.0,
+            "min": 100.0,
+            "max": 100.0,
+            "population_std": 0.0,
+            "population_variance": 0.0,
+            "sample_std": null,
+            "sample_variance": null,
+            "q1": null,
+            "q3": null,
+            "iqr": null,
+            "coefficient_of_variation": null
+        },
+        "KGQ": {
+            "metric": "KGQ",
+            "n": 1,
+            "mean": 40.0,
+            "median": 40.0,
+            "min": 40.0,
+            "max": 40.0,
+            "population_std": 0.0,
+            "population_variance": 0.0,
+            "sample_std": null,
+            "sample_variance": null,
+            "q1": null,
+            "q3": null,
+            "iqr": null,
+            "coefficient_of_variation": null
+        },
+        "RRS": {
+            "metric": "RRS",
+            "n": 1,
+            "mean": 43.33,
+            "median": 43.33,
+            "min": 43.33,
+            "max": 43.33,
+            "population_std": 0.0,
+            "population_variance": 0.0,
+            "sample_std": null,
+            "sample_variance": null,
+            "q1": null,
+            "q3": null,
+            "iqr": null,
+            "coefficient_of_variation": null
+        },
+        "CES": {
+            "metric": "CES",
+            "n": 1,
+            "mean": 57.71,
+            "median": 57.71,
+            "min": 57.71,
+            "max": 57.71,
+            "population_std": 0.0,
+            "population_variance": 0.0,
+            "sample_std": null,
+            "sample_variance": null,
+            "q1": null,
+            "q3": null,
+            "iqr": null,
+            "coefficient_of_variation": null
+        }
+    },
+    "bootstrap_confidence_intervals": {
+        "MCS": {
+            "mean": 47.5,
+            "lower": null,
+            "upper": null,
+            "iterations": 0,
+            "confidence": 0.95,
+            "status": "NOT_ESTIMABLE",
+            "reason": "At least two independent observations are required."
+        },
+        "SRS": {
+            "mean": 100.0,
+            "lower": null,
+            "upper": null,
+            "iterations": 0,
+            "confidence": 0.95,
+            "status": "NOT_ESTIMABLE",
+            "reason": "At least two independent observations are required."
+        },
+        "KGQ": {
+            "mean": 40.0,
+            "lower": null,
+            "upper": null,
+            "iterations": 0,
+            "confidence": 0.95,
+            "status": "NOT_ESTIMABLE",
+            "reason": "At least two independent observations are required."
+        },
+        "RRS": {
+            "mean": 43.33,
+            "lower": null,
+            "upper": null,
+            "iterations": 0,
+            "confidence": 0.95,
+            "status": "NOT_ESTIMABLE",
+            "reason": "At least two independent observations are required."
+        },
+        "CES": {
+            "mean": 57.71,
+            "lower": null,
+            "upper": null,
+            "iterations": 0,
+            "confidence": 0.95,
+            "status": "NOT_ESTIMABLE",
+            "reason": "At least two independent observations are required."
+        }
+    },
+    "correlation_matrix": {
+        "CES": {
+            "CES": null,
+            "KGQ": null,
+            "MCS": null,
+            "RRS": null,
+            "SRS": null
+        },
+        "KGQ": {
+            "CES": null,
+            "KGQ": null,
+            "MCS": null,
+            "RRS": null,
+            "SRS": null
+        },
+        "MCS": {
+            "CES": null,
+            "KGQ": null,
+            "MCS": null,
+            "RRS": null,
+            "SRS": null
+        },
+        "RRS": {
+            "CES": null,
+            "KGQ": null,
+            "MCS": null,
+            "RRS": null,
+            "SRS": null
+        },
+        "SRS": {
+            "CES": null,
+            "KGQ": null,
+            "MCS": null,
+            "RRS": null,
+            "SRS": null
+        }
+    },
+    "runs": [
+        {
+            "run_id": "canonical-baseline-001",
+            "dataset": "crme_internal",
+            "scenario": "canonical_evaluation",
+            "configuration": "crme",
+            "seed": null,
+            "metrics": {
+                "MCS": 47.5,
+                "SRS": 100.0,
+                "KGQ": 40.0,
+                "RRS": 43.33,
+                "CES": 57.71
+            },
+            "source": "canonical_evaluation_summary",
+            "metadata": {
+                "canonical": true,
+                "read_only": true
+            }
+        }
+    ],
+    "status": "COMPLETED"
+}

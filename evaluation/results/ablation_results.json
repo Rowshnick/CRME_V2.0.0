@@ -1,0 +1,30 @@
+[
+    {
+        "variant": "CRME-Full",
+        "CRT": 5.0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    },
+    {
+        "variant": "CRME-NoGraph",
+        "CRT": 5.0,
+        "KOS": 0.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    },
+    {
+        "variant": "CRME-NoSession",
+        "CRT": 0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    },
+    {
+        "variant": "CRME-NoArtifact",
+        "CRT": 5.0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 0
+    }
+]

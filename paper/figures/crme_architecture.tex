@@ -1,0 +1,101 @@
+\begin{tikzpicture}[
+node distance=4mm,
+box/.style={
+rectangle,
+rounded corners,
+draw,
+align=center,
+font=\scriptsize,
+minimum width=24mm,
+minimum height=7mm
+},
+core/.style={
+rectangle,
+rounded corners,
+draw,
+very thick,
+align=center,
+font=\scriptsize\bfseries,
+minimum width=34mm,
+minimum height=10mm
+},
+layer/.style={
+draw,
+dashed,
+rounded corners,
+inner sep=3mm
+},
+arrow/.style={
+-{Latex[length=1.5mm]},
+thick
+}
+]
+
+\node[box] (user)
+{Researcher\\
+AI Assistant};
+
+\node[core, below=8mm of user] (kernel)
+{CRME Kernel\\
+Cognitive Memory Engine};
+
+\node[box, below left=9mm and 8mm of kernel] (memory)
+{Memory Engine\\
+Research Objects};
+
+\node[box, below=9mm of kernel] (session)
+{Session Engine\\
+Goals \& Decisions};
+
+\node[box, below right=9mm and 8mm of kernel] (project)
+{Project Engine\\
+Dependencies\\
+Evolution};
+
+\node[box, below=8mm of session] (semantic)
+{Semantic Engine\\
+Indexing};
+
+\node[box, below=7mm of semantic] (query)
+{Query Engine\\
+Retrieval};
+
+\node[box, below=7mm of query] (continuity)
+{Research Continuity\\
+Knowledge Reuse};
+
+
+\draw[arrow] (user)--(kernel);
+
+\draw[arrow] (kernel)--(memory);
+\draw[arrow] (kernel)--(session);
+\draw[arrow] (kernel)--(project);
+
+\draw[arrow] (memory)--(semantic);
+\draw[arrow] (session)--(semantic);
+\draw[arrow] (project)--(semantic);
+
+\draw[arrow] (semantic)--(query);
+\draw[arrow] (query)--(continuity);
+
+
+\node[layer,
+fit=(memory)(session)(project),
+label={[font=\scriptsize]above:Memory Layer}]
+{};
+
+
+\node[layer,
+fit=(semantic)(query),
+label={[font=\scriptsize]above:Intelligence Layer}]
+{};
+
+
+\node[layer,
+fit=(continuity),
+label={[font=\scriptsize]above:Continuity Layer}]
+{};
+
+
+\end{tikzpicture}
+

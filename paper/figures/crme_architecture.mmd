@@ -1,0 +1,36 @@
+flowchart TB
+
+A[Researcher / AI Assistant Interface]
+
+B[Cognitive Research Memory Engine<br/>CRME Kernel]
+
+B --> C[Memory Engine<br/>Structured Research Objects]
+B --> D[Session Engine<br/>Sessions, Decisions, Goals]
+B --> E[Project Engine<br/>Milestones, Dependencies, Evolution]
+
+C --> F[Semantic Engine<br/>Indexing & Relationship Discovery]
+
+D --> F
+E --> F
+
+F --> G[Knowledge Query & Retrieval Layer]
+
+G --> H[Research Continuity<br/>Previous Knowledge Reuse]
+
+H --> A
+
+
+subgraph Memory Layer
+C
+D
+E
+end
+
+subgraph Intelligence Layer
+F
+G
+end
+
+subgraph Continuity Loop
+H
+end

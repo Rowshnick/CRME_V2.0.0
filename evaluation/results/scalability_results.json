@@ -1,0 +1,38 @@
+[
+    {
+        "dataset": "Small",
+        "objects": 50,
+        "sessions": 10,
+        "relations": 100,
+        "mean_execution_time_sec": 8.43e-06,
+        "std_execution_time_sec": 8.4e-07,
+        "CRT": 5.0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    },
+    {
+        "dataset": "Medium",
+        "objects": 500,
+        "sessions": 100,
+        "relations": 1000,
+        "mean_execution_time_sec": 0.00016264,
+        "std_execution_time_sec": 0.00017825,
+        "CRT": 5.0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    },
+    {
+        "dataset": "Large",
+        "objects": 5000,
+        "sessions": 1000,
+        "relations": 10000,
+        "mean_execution_time_sec": 0.00079439,
+        "std_execution_time_sec": 1.36e-05,
+        "CRT": 5.0,
+        "KOS": 1.0,
+        "DTS": 1.0,
+        "RSR": 1.0
+    }
+]

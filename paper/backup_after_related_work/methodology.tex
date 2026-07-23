@@ -1,0 +1,182 @@
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Overview of the Cognitive Research Memory Engine (CRME)}
+
+The Cognitive Research Memory Engine (CRME) is a structured research memory framework designed to support continuity, organization, traceability, and knowledge evolution throughout the research lifecycle.
+
+Unlike conventional documentation-based approaches that primarily store research outputs as isolated files, CRME models research knowledge as a collection of interconnected and evolving research objects. Each research object maintains semantic information, contextual state, relationships, temporal information, and provenance records.
+
+The primary objective of CRME is to provide a unified infrastructure for managing research context, historical interactions, project evolution, semantic relationships, and generated artifacts. The framework integrates temporal memory management, project-level organization, knowledge representation, and provenance tracking within a modular architecture.
+
+As illustrated in Fig.~\ref{fig:crme_architecture}, CRME follows a layered architecture consisting of the Research Interaction Layer, Cognitive Coordinator, Specialized Memory Engines, Research Memory Repository, and Reasoning and Intelligence Layer.
+
+This architecture enables continuous interaction between researchers and accumulated research knowledge, allowing previous research states to be recovered and reused during future activities.
+
+
+\subsection{CRME Architecture}
+
+The overall architecture of CRME is presented in Fig.~\ref{fig:crme_architecture}. The framework is organized around a Cognitive Coordinator that manages communication between research activities and memory components.
+
+The Cognitive Coordinator acts as the central orchestration mechanism responsible for context management, memory coordination, and knowledge routing.
+
+Unlike passive storage systems, the coordinator enables dynamic creation, update, and retrieval of research knowledge.
+
+
+\subsubsection{Session Engine}
+
+The Session Engine provides temporal continuity across research interactions by capturing session states and maintaining historical snapshots.
+
+Each research session is represented as:
+
+\[
+S_t =
+(G_t,D_t,M_t,A_t)
+\]
+
+where $G_t$ represents research goals, $D_t$ represents decisions, $M_t$ represents interaction messages and contextual information, and $A_t$ represents generated artifacts.
+
+Through session-based memory representation, CRME preserves the evolution of research activities across multiple interactions.
+
+
+\subsubsection{Project Engine}
+
+The Project Engine provides research lifecycle management capabilities by representing project-level structures, including objectives, milestones, dependencies, and progress information.
+
+By connecting research activities with project-level states, CRME provides a higher-level representation of research development.
+
+
+\subsubsection{Knowledge Graph Engine}
+
+The Knowledge Graph Engine represents semantic relationships among research objects.
+
+The research memory graph is modeled as:
+
+\[
+G=(V,E)
+\]
+
+where $V$ represents research objects and $E$ represents semantic relationships between objects.
+
+This graph-based representation enables structured knowledge organization and supports retrieval and future reasoning operations.
+
+
+\subsubsection{Research Memory Repository}
+
+The Research Memory Repository acts as the central storage layer for structured research information.
+
+It maintains research objects, metadata, session histories, decision records, and generated artifacts.
+
+Unlike traditional repositories that mainly focus on document storage, CRME preserves contextual relationships associated with each research entity.
+
+
+\subsubsection{Reasoning and Intelligence Layer}
+
+The Reasoning and Intelligence Layer provides mechanisms for knowledge retrieval, contextual analysis, and future reasoning extensions over accumulated research memory.
+
+The feedback loop illustrated in Fig.~\ref{fig:crme_architecture} enables extracted knowledge to influence future research activities through the Cognitive Coordinator.
+
+
+\subsection{Research Memory Lifecycle}
+
+Research activities are iterative processes in which ideas, hypotheses, experiments, and conclusions continuously evolve.
+
+As illustrated in Fig.~\ref{fig:research_lifecycle}, CRME models this evolution through a research memory lifecycle consisting of idea formation, hypothesis development, planning, experimentation, artifact generation, and knowledge feedback.
+
+This lifecycle-oriented design distinguishes CRME from static documentation systems by representing research as an evolving knowledge process rather than a collection of independent artifacts.
+
+
+\subsection{Research Object Representation}
+
+A fundamental design principle of CRME is representing research knowledge through structured Research Objects.
+
+A Research Object is formally defined as:
+
+\[
+RO_i =
+(ID_i,Type_i,Meta_i,Rel_i,Temp_i,Prov_i,Art_i)
+\]
+
+where:
+
+\begin{itemize}
+\item $ID_i$ represents the unique identifier.
+\item $Type_i$ defines the research object category.
+\item $Meta_i$ represents descriptive attributes.
+\item $Rel_i$ captures semantic relationships.
+\item $Temp_i$ maintains temporal information.
+\item $Prov_i$ records provenance information.
+\item $Art_i$ represents associated artifacts.
+\end{itemize}
+
+The object type space includes:
+
+\[
+Type =
+\{Idea,Hypothesis,Decision,Experiment,Result,Artifact,Publication\}
+\]
+
+This representation enables CRME to preserve both research outcomes and the historical context that produced them.
+
+
+\subsection{Provenance-Aware Research Memory}
+
+CRME incorporates provenance-aware memory management to improve traceability between decisions, processes, and research outcomes.
+
+For each research entity, provenance information is represented as:
+
+\[
+Prov_i =
+(Source_i,Activity_i,Agent_i,Time_i)
+\]
+
+This mechanism enables researchers to investigate how artifacts were generated, which decisions influenced their creation, and how previous research states contributed to current outcomes.
+
+
+\subsection{Implementation Realization}
+
+The proposed methodology has been implemented using a modular Python-based architecture.
+
+The mapping between conceptual components and implementation modules is summarized in Table~\ref{tab:implementation_mapping}.
+
+\begin{table}[h]
+\centering
+\caption{Mapping Between CRME Components and Implementation Modules}
+\label{tab:implementation_mapping}
+
+\begin{tabular}{ll}
+\hline
+Conceptual Component & Implementation Module\\
+\hline
+Memory Management & memory\_engine.py\\
+Session Continuity & session\_engine.py\\
+Project Management & project\_engine.py\\
+Knowledge Relationships & graph\_engine.py\\
+Semantic Retrieval & semantic\_engine.py\\
+Evaluation Framework & evaluation/ modules\\
+\hline
+\end{tabular}
+
+\end{table}
+
+
+\subsection{Evaluation Integration}
+
+CRME evaluation is integrated into the proposed methodology through benchmark comparison, ablation analysis, and scalability evaluation.
+
+The evaluation framework measures:
+
+\begin{itemize}
+\item Knowledge Organization Score (KOS),
+\item Decision Traceability Score (DTS),
+\item Research State Retention (RSR),
+\item Cognitive Retrieval Time (CRT).
+\end{itemize}
+
+
+\subsection{Summary}
+
+CRME introduces a structured methodology for managing evolving research knowledge through coordinated memory components, semantic representation, temporal continuity, and provenance-aware tracking.
+
+By integrating research objects, session memory, project evolution, semantic relationships, and artifact lineage, CRME transforms research memory from passive storage into an evolving knowledge infrastructure.
+

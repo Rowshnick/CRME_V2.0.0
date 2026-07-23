@@ -1,0 +1,18 @@
+{
+    "created_at": "2026-07-18T22:27:18.773318+00:00",
+    "builder": "PaperSectionBuilder",
+    "sections": {
+        "results": "evaluation/results/final/paper/sections/results.md",
+        "ablation": "evaluation/results/final/paper/sections/ablation.md",
+        "statistics": "evaluation/results/final/paper/sections/statistics.md",
+        "threats_to_validity": "evaluation/results/final/paper/sections/threats_to_validity.md",
+        "reproducibility": "evaluation/results/final/paper/sections/reproducibility.md",
+        "discussion": "evaluation/results/final/paper/sections/discussion.md"
+    },
+    "evidence_sources": {
+        "summary": "evaluation/results/final/evaluation_summary.json",
+        "claim_audit": "evaluation/results/final/paper/claim_audit/claim_evidence_matrix.json",
+        "consistency_audit": "evaluation/results/final/paper/consistency_audit/q1_consistency_audit.json"
+    },
+    "status": "completed"
+}

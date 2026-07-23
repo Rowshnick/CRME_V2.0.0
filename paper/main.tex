@@ -1,0 +1,145 @@
+\documentclass[conference]{IEEEtran}
+
+% =====================================================
+% Packages
+% =====================================================
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}
+\usepackage{cite}
+
+% TikZ support for architecture diagrams
+\usepackage{tikz}
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    fit
+}
+
+\usepackage[
+hidelinks
+]{hyperref}
+
+
+
+% =====================================================
+% Figure Path
+% =====================================================
+
+\graphicspath{{figures/}}
+
+
+
+% =====================================================
+% Document Information
+% =====================================================
+
+
+\title{
+Cognitive Research Memory Engine (CRME):\\
+A Structured Framework for Research Knowledge Continuity,
+Semantic Organization, and Provenance-Aware Intelligence
+}
+
+
+
+\author{
+Anonymous Author
+}
+
+
+
+% =====================================================
+% Document
+% =====================================================
+
+\begin{document}
+
+
+\maketitle
+
+
+
+% =====================================================
+% Abstract
+% =====================================================
+
+\begin{abstract}
+
+The rapid growth of artificial intelligence assisted research
+environments has created a need for persistent and structured
+research memory mechanisms. This paper introduces the Cognitive
+Research Memory Engine (CRME), a modular framework designed to
+capture, organize, and reuse research knowledge across multiple
+sessions and project stages.
+
+CRME integrates persistent memory management, semantic organization,
+provenance tracking, research lifecycle modeling, and project evolution
+management into a unified architecture. Unlike conventional document
+based approaches, CRME represents research activities as connected
+knowledge objects, enabling traceability between ideas, decisions,
+experiments, artifacts, and publications.
+
+The framework is implemented through modular software components
+including memory, session, project, semantic, retrieval, and coordination
+engines. Experimental evaluation demonstrates the capability of CRME
+for improving research continuity, knowledge retrieval, and structured
+research workflow management.
+
+\end{abstract}
+
+
+
+% =====================================================
+% Keywords
+% =====================================================
+
+\begin{IEEEkeywords}
+
+Research Memory,
+Knowledge Management,
+Provenance Tracking,
+Semantic Retrieval,
+Research Workflow,
+Explainable Intelligence
+
+\end{IEEEkeywords}
+
+
+
+% =====================================================
+% Main Sections
+% =====================================================
+
+
+\input{sections/introduction}
+
+
+\input{sections/related_work}
+
+
+\input{sections/methodology}
+
+
+\input{sections/evaluation}
+
+
+
+% =====================================================
+% References
+% =====================================================
+
+\bibliographystyle{IEEEtran}
+
+\bibliography{references}
+
+
+
+\end{document}
+
+

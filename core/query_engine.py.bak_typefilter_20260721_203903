@@ -1,0 +1,2013 @@
+import os
+import re
+import json
+from datetime import datetime, timezone
+from collections import defaultdict
+
+
+class QueryEngine:
+    """
+    CRME Semantic Query Engine v2.0
+
+    Responsibilities:
+    - Persian normalization
+    - English normalization
+    - Tokenization
+    - Intent detection
+    - Deterministic query expansion
+    - Multi-source retrieval
+    - Memory retrieval
+    - Type filtering
+    - Weighted ranking
+    - Recency scoring
+    - Duplicate removal
+    - Match explanation
+    - Context-aware search
+    - LLM-independent architecture
+
+    Architecture:
+
+        Query
+          │
+          ▼
+    Normalization
+          │
+          ▼
+      Tokenization
+          │
+          ▼
+    Intent Detection
+          │
+          ▼
+    Query Expansion
+          │
+          ▼
+    ┌───────────────────────┐
+    │ Multi-Source Retrieval │
+    ├───────────────────────┤
+    │ Project Engine         │
+    │ Graph Engine           │
+    │ Session Engine         │
+    │ Memory Layer           │
+    └───────────────────────┘
+          │
+          ▼
+        Scoring
+          │
+          ▼
+      Deduplication
+          │
+          ▼
+        Ranking
+          │
+          ▼
+        Results
+    """
+
+    VERSION = "2.0.0"
+
+    # =====================================================
+    # INITIALIZATION
+    # =====================================================
+
+    def __init__(
+        self,
+        project_engine=None,
+        graph_engine=None,
+        session_engine=None,
+        memory_engine=None,
+        max_results=20
+    ):
+        self.project_engine = project_engine
+        self.graph_engine = graph_engine
+        self.session_engine = session_engine
+        self.memory_engine = memory_engine
+        self.max_results = max_results
+
+    # =====================================================
+    # PUBLIC QUERY API
+    # =====================================================
+
+    def query(
+        self,
+        query,
+        query_type=None,
+        top_k=None,
+        project_id=None,
+        session_id=None, result_type=None):
+        """
+        Main semantic query interface.
+
+        Example:
+
+            engine.query(
+                "What decisions were made about architecture?",
+                query_type="decision"
+            )
+        """
+
+        if not query or not str(query).strip():
+            return self._empty_result("")
+
+        raw_query = str(query).strip()
+
+        normalized_query = self.normalize(raw_query)
+
+        tokens = self.tokenize(normalized_query)
+
+        detected_intent = (
+            query_type
+            if query_type
+            else self.detect_intent(normalized_query)
+        )
+
+        expanded_tokens = self.expand_query(tokens)
+
+        candidates = []
+
+        # -------------------------------------------------
+        # PROJECT ENGINE
+        # -------------------------------------------------
+
+        candidates.extend(
+            self._retrieve_from_project(
+                project_id=project_id
+            )
+        )
+
+        # -------------------------------------------------
+        # GRAPH ENGINE
+        # -------------------------------------------------
+
+        candidates.extend(
+            self._retrieve_from_graph(
+                project_id=project_id
+            )
+        )
+
+        # -------------------------------------------------
+        # SESSION ENGINE
+        # -------------------------------------------------
+
+        candidates.extend(
+            self._retrieve_from_sessions(
+                project_id=project_id,
+                session_id=session_id
+            )
+        )
+
+        # -------------------------------------------------
+        # MEMORY LAYER
+        # -------------------------------------------------
+
+        candidates.extend(
+            self._retrieve_from_memory(
+                project_id=project_id
+            )
+        )
+
+        # -------------------------------------------------
+        # SCORE
+        # -------------------------------------------------
+
+        scored_results = []
+
+        for candidate in candidates:
+
+            result = self._score_candidate(
+                candidate=candidate,
+                raw_query=raw_query,
+                normalized_query=normalized_query,
+                tokens=tokens,
+                expanded_tokens=expanded_tokens,
+                query_type=detected_intent
+            )
+
+            if result["score"] > 0:
+                scored_results.append(result)
+
+        # -------------------------------------------------
+        # SORT
+        # -------------------------------------------------
+
+        scored_results.sort(
+            key=lambda item: item.get("score", 0),
+            reverse=True
+        )
+
+        # -------------------------------------------------
+        # DEDUPLICATION
+        # -------------------------------------------------
+
+        unique_results = self.remove_duplicates(
+            scored_results
+        )
+
+        # -------------------------------------------------
+        # TOP K
+        # -------------------------------------------------
+
+        limit = (
+            top_k
+            if top_k is not None
+            else self.max_results
+        )
+
+        final_results = unique_results[:limit]
+
+        return {
+            "query": raw_query,
+            "normalized_query": normalized_query,
+            "intent": detected_intent,
+            "tokens": tokens,
+            "expanded_tokens": expanded_tokens,
+            "results": final_results,
+            "total_results": len(final_results),
+            "engine_version": self.VERSION,
+            "timestamp": self._now()
+        }
+
+    # =====================================================
+    # NORMALIZATION
+    # =====================================================
+
+    def normalize(self, text):
+        """
+        Normalize Persian, Arabic and English text.
+        """
+
+        if text is None:
+            return ""
+
+        text = str(text).lower()
+
+        # -------------------------------------------------
+        # Persian / Arabic character normalization
+        # -------------------------------------------------
+
+        replacements = {
+            "ي": "ی",
+            "ى": "ی",
+            "ك": "ک",
+            "ۀ": "ه",
+            "ة": "ه",
+            "ؤ": "و",
+            "إ": "ا",
+            "أ": "ا",
+            "ٱ": "ا"
+        }
+
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+
+        # -------------------------------------------------
+        # Persian digits → English digits
+        # -------------------------------------------------
+
+        persian_digits = "۰۱۲۳۴۵۶۷۸۹"
+
+        for index, digit in enumerate(persian_digits):
+            text = text.replace(
+                digit,
+                str(index)
+            )
+
+        # -------------------------------------------------
+        # Arabic digits → English digits
+        # -------------------------------------------------
+
+        arabic_digits = "٠١٢٣٤٥٦٧٨٩"
+
+        for index, digit in enumerate(arabic_digits):
+            text = text.replace(
+                digit,
+                str(index)
+            )
+
+        # -------------------------------------------------
+        # Remove punctuation
+        # Keep:
+        # - English letters
+        # - Persian letters
+        # - numbers
+        # - underscore
+        # - hyphen
+        # - slash
+        # - dot
+        # -------------------------------------------------
+
+        text = re.sub(
+            r"[^\w\s\u0600-\u06FF\-\/\.]",
+            " ",
+            text,
+            flags=re.UNICODE
+        )
+
+        # -------------------------------------------------
+        # Normalize whitespace
+        # -------------------------------------------------
+
+        text = re.sub(
+            r"\s+",
+            " ",
+            text
+        ).strip()
+
+        return text
+
+    # =====================================================
+    # TOKENIZATION
+    # =====================================================
+
+
+    def _tokenize(self, text):
+        """
+        Backward-compatible alias for legacy callers.
+        """
+        return self.tokenize(text)
+
+    def tokenize(self, text):
+        """
+        Tokenize Persian and English text.
+        """
+
+        if not text:
+            return []
+
+        tokens = re.findall(
+            r"[\w\u0600-\u06FF]+",
+            text,
+            flags=re.UNICODE
+        )
+
+        # Remove very short noise tokens
+        tokens = [
+            token
+            for token in tokens
+            if len(token) > 1
+        ]
+
+        # Preserve order while removing duplicates
+        return list(
+            dict.fromkeys(tokens)
+        )
+
+    # =====================================================
+    # INTENT DETECTION
+    # =====================================================
+
+    def detect_intent(self, query):
+        """
+        Detect the most likely research-memory intent.
+        """
+
+        query = self.normalize(query)
+
+        intent_keywords = {
+
+            "decision": [
+                "decision",
+                "decisions",
+                "decide",
+                "chosen",
+                "choice",
+                "تصمیم",
+                "تصمیمات",
+                "انتخاب",
+                "انتخاب شد"
+            ],
+
+            "goal": [
+                "goal",
+                "goals",
+                "objective",
+                "target",
+                "هدف",
+                "اهداف",
+                "مقصد"
+            ],
+
+            "artifact": [
+                "file",
+                "artifact",
+                "code",
+                "document",
+                "module",
+                "فایل",
+                "کد",
+                "ماژول",
+                "سند"
+            ],
+
+            "session": [
+                "session",
+                "conversation",
+                "chat",
+                "جلسه",
+                "گفتگو",
+                "چت"
+            ],
+
+            "idea": [
+                "idea",
+                "ideas",
+                "future",
+                "suggestion",
+                "ایده",
+                "ایده ها",
+                "آینده",
+                "پیشنهاد"
+            ],
+
+            "provenance": [
+                "source",
+                "provenance",
+                "origin",
+                "منبع",
+                "منشأ",
+                "منشا"
+            ]
+
+        }
+
+        scores = defaultdict(int)
+
+        tokens = self.tokenize(query)
+
+        for intent, keywords in intent_keywords.items():
+
+            for keyword in keywords:
+
+                normalized_keyword = self.normalize(
+                    keyword
+                )
+
+                if normalized_keyword in tokens:
+
+                    scores[intent] += 1
+
+                elif normalized_keyword in query:
+
+                    scores[intent] += 1
+
+        if not scores:
+            return "all"
+
+        return max(
+            scores,
+            key=scores.get
+        )
+
+    # =====================================================
+    # QUERY EXPANSION
+    # =====================================================
+
+    def expand_query(self, tokens):
+        """
+        Lightweight deterministic query expansion.
+
+        No:
+        - LLM
+        - Embedding model
+        - External API
+        - Vector database
+
+        This keeps CRME:
+        - deterministic
+        - reproducible
+        - LLM-independent
+        """
+
+        expansion_map = {
+
+            "architecture": [
+                "architecture",
+                "architectural",
+                "design",
+                "structure",
+                "framework",
+                "معماری",
+                "ساختار",
+                "چارچوب"
+            ],
+
+            "decision": [
+                "decision",
+                "choice",
+                "selected",
+                "تصمیم",
+                "انتخاب"
+            ],
+
+            "query": [
+                "query",
+                "search",
+                "retrieval",
+                "جستجو",
+                "پرسش"
+            ],
+
+            "memory": [
+                "memory",
+                "knowledge",
+                "context",
+                "حافظه",
+                "دانش",
+                "زمینه"
+            ],
+
+            "project": [
+                "project",
+                "research",
+                "پروژه",
+                "پژوهش"
+            ],
+
+            "existing": [
+                "existing",
+                "current",
+                "present",
+                "موجود",
+                "فعلی",
+                "کنونی"
+            ],
+
+            "preserve": [
+                "preserve",
+                "keep",
+                "maintain",
+                "retain",
+                "حفظ",
+                "نگهداری"
+            ]
+
+        }
+
+        expanded = set(tokens)
+
+        for token in tokens:
+
+            if token in expansion_map:
+
+                expanded.update(
+                    expansion_map[token]
+                )
+
+        return list(expanded)
+    # =====================================================
+    # PROJECT RETRIEVAL
+    # =====================================================
+
+    def _retrieve_from_project(
+        self,
+        project_id=None
+    ):
+        """
+        Retrieve searchable objects from ResearchProject.
+
+        Sources:
+        - decisions
+        - research ledger
+        - ideas
+        - provenance
+        - artifacts
+        """
+
+        if not self.project_engine:
+            return []
+
+        candidates = []
+
+        project = self.project_engine
+
+        try:
+            data = project.to_dict()
+        except Exception:
+            return []
+
+        if not isinstance(data, dict):
+            return []
+
+        current_project_id = (
+            data.get("project_id")
+            or getattr(
+                project,
+                "project_id",
+                None
+            )
+        )
+
+        if (
+            project_id
+            and current_project_id
+            and project_id != current_project_id
+        ):
+            return []
+
+        # -------------------------------------------------
+        # DECISIONS
+        # -------------------------------------------------
+
+        decisions = (
+            data.get("decision_log")
+            or data.get("decisions")
+            or getattr(
+                project,
+                "decision_log",
+                []
+            )
+        )
+
+        for decision in decisions:
+
+            if isinstance(
+                decision,
+                dict
+            ):
+
+                text = (
+                    decision.get("decision")
+                    or decision.get("text")
+                    or decision.get("details")
+                    or ""
+                )
+
+                timestamp = (
+                    decision.get("timestamp")
+                    or decision.get("created_at")
+                )
+
+                candidate_data = decision
+
+            else:
+
+                text = str(
+                    decision
+                )
+
+                timestamp = None
+
+                candidate_data = {
+                    "decision": text
+                }
+
+            candidates.append(
+                {
+                    "type": "decision",
+                    "text": str(text),
+                    "data": candidate_data,
+                    "session_id": (
+                        candidate_data.get(
+                            "session_id"
+                        )
+                        if isinstance(
+                            candidate_data,
+                            dict
+                        )
+                        else None
+                    ),
+                    "project_id": current_project_id,
+                    "timestamp": timestamp,
+                    "source": "project_engine"
+                }
+            )
+
+        # -------------------------------------------------
+        # RESEARCH LEDGER
+        # -------------------------------------------------
+
+        ledger = (
+            data.get("research_ledger")
+            or data.get("ledger")
+            or getattr(
+                project,
+                "research_ledger",
+                []
+            )
+        )
+
+        for entry in ledger:
+
+            if isinstance(
+                entry,
+                dict
+            ):
+
+                text = " ".join(
+                    str(value)
+                    for value in entry.values()
+                    if value is not None
+                )
+
+                timestamp = (
+                    entry.get(
+                        "timestamp"
+                    )
+                )
+
+            else:
+
+                text = str(
+                    entry
+                )
+
+                timestamp = None
+
+            candidates.append(
+                {
+                    "type": "ledger",
+                    "text": text,
+                    "data": entry,
+                    "project_id": current_project_id,
+                    "timestamp": timestamp,
+                    "source": "project_engine"
+                }
+            )
+
+        # -------------------------------------------------
+        # IDEAS
+        # -------------------------------------------------
+
+        ideas = (
+            data.get("idea_inbox")
+            or data.get("ideas")
+            or getattr(
+                project,
+                "idea_inbox",
+                []
+            )
+        )
+
+        for idea in ideas:
+
+            if isinstance(
+                idea,
+                dict
+            ):
+
+                text = (
+                    idea.get("idea")
+                    or idea.get("text")
+                    or ""
+                )
+
+                timestamp = (
+                    idea.get(
+                        "timestamp"
+                    )
+                )
+
+            else:
+
+                text = str(
+                    idea
+                )
+
+                timestamp = None
+
+            candidates.append(
+                {
+                    "type": "idea",
+                    "text": text,
+                    "data": idea,
+                    "project_id": current_project_id,
+                    "timestamp": timestamp,
+                    "source": "project_engine"
+                }
+            )
+
+        # -------------------------------------------------
+        # PROVENANCE
+        # -------------------------------------------------
+
+        provenance = (
+            data.get("provenance")
+            or getattr(
+                project,
+                "provenance",
+                []
+            )
+        )
+
+        for item in provenance:
+
+            if isinstance(
+                item,
+                dict
+            ):
+
+                text = " ".join(
+                    str(value)
+                    for value in item.values()
+                    if value is not None
+                )
+
+                timestamp = (
+                    item.get(
+                        "timestamp"
+                    )
+                )
+
+            else:
+
+                text = str(
+                    item
+                )
+
+                timestamp = None
+
+            candidates.append(
+                {
+                    "type": "provenance",
+                    "text": text,
+                    "data": item,
+                    "project_id": current_project_id,
+                    "timestamp": timestamp,
+                    "source": "project_engine"
+                }
+            )
+
+        # -------------------------------------------------
+        # ARTIFACTS
+        # -------------------------------------------------
+
+        artifacts = (
+            data.get("artifacts")
+            or getattr(
+                project,
+                "artifacts",
+                []
+            )
+        )
+
+        for artifact in artifacts:
+
+            if isinstance(
+                artifact,
+                dict
+            ):
+
+                text = (
+                    artifact.get("path")
+                    or artifact.get("name")
+                    or artifact.get("artifact")
+                    or ""
+                )
+
+                timestamp = (
+                    artifact.get(
+                        "timestamp"
+                    )
+                )
+
+            else:
+
+                text = str(
+                    artifact
+                )
+
+                timestamp = None
+
+            candidates.append(
+                {
+                    "type": "artifact",
+                    "text": text,
+                    "data": artifact,
+                    "project_id": current_project_id,
+                    "timestamp": timestamp,
+                    "source": "project_engine"
+                }
+            )
+
+        return candidates
+
+
+    # =====================================================
+    # GRAPH RETRIEVAL
+    # =====================================================
+
+    def _retrieve_from_graph(
+        self,
+        project_id=None
+    ):
+        """
+        Retrieve searchable objects from GraphEngine.
+        """
+
+        if not self.graph_engine:
+            return []
+
+        try:
+            graph = self.graph_engine.export()
+        except Exception:
+            return []
+
+        if not isinstance(
+            graph,
+            dict
+        ):
+            return []
+
+        objects = (
+            graph.get("objects")
+            or graph.get("nodes")
+            or []
+        )
+
+        if isinstance(
+            objects,
+            dict
+        ):
+            objects = list(
+                objects.values()
+            )
+
+        candidates = []
+
+        for obj in objects:
+
+            if not isinstance(
+                obj,
+                dict
+            ):
+                continue
+
+            text = self._extract_text(
+                obj
+            )
+
+            if not text:
+                continue
+
+            candidate_project_id = (
+                obj.get(
+                    "project_id"
+                )
+            )
+
+            if (
+                project_id
+                and candidate_project_id
+                and candidate_project_id != project_id
+            ):
+                continue
+
+            candidates.append(
+                {
+                    "id": (
+                        obj.get("id")
+                        or obj.get("object_id")
+                    ),
+                    "type": (
+                        obj.get("type")
+                        or obj.get("object_type")
+                        or "memory"
+                    ),
+                    "text": text,
+                    "data": obj,
+                    "project_id": candidate_project_id,
+                    "timestamp": (
+                        obj.get("timestamp")
+                        or obj.get("created_at")
+                        or obj.get("updated_at")
+                    ),
+                    "source": "graph_engine"
+                }
+            )
+
+        return candidates
+
+
+    # =====================================================
+    # SESSION RETRIEVAL
+    # =====================================================
+
+    def _retrieve_from_sessions(
+        self,
+        project_id=None,
+        session_id=None
+    ):
+        """
+        Retrieve searchable content from session snapshots.
+        """
+
+        if not self.session_engine:
+            return []
+
+        try:
+            session_dir = (
+                self.session_engine.session_dir
+            )
+        except Exception:
+            return []
+
+        import os
+        import json
+
+        if not os.path.exists(
+            session_dir
+        ):
+            return []
+
+        candidates = []
+
+        for filename in os.listdir(
+            session_dir
+        ):
+
+            if not filename.endswith(
+                ".json"
+            ):
+                continue
+
+            path = os.path.join(
+                session_dir,
+                filename
+            )
+
+            try:
+
+                with open(
+                    path,
+                    "r",
+                    encoding="utf-8"
+                ) as file:
+
+                    session = json.load(
+                        file
+                    )
+
+            except Exception:
+
+                continue
+
+            if not isinstance(
+                session,
+                dict
+            ):
+                continue
+
+            current_session_id = (
+                session.get(
+                    "session_id"
+                )
+            )
+
+            current_project_id = (
+                session.get(
+                    "project_id"
+                )
+            )
+
+            if (
+                session_id
+                and current_session_id != session_id
+            ):
+                continue
+
+            if (
+                project_id
+                and current_project_id
+                and current_project_id != project_id
+            ):
+                continue
+
+            state = (
+                session.get(
+                    "state"
+                )
+                or {}
+            )
+
+            parts = []
+
+            for field in [
+                "decisions",
+                "goals",
+                "artifacts",
+                "notes"
+            ]:
+
+                values = state.get(
+                    field,
+                    []
+                )
+
+                if isinstance(
+                    values,
+                    list
+                ):
+
+                    parts.extend(
+                        str(item)
+                        for item in values
+                    )
+
+            text = " ".join(
+                parts
+            )
+
+            if not text:
+                continue
+
+            candidates.append(
+                {
+                    "type": "session",
+                    "text": text,
+                    "data": session,
+                    "session_id": current_session_id,
+                    "project_id": current_project_id,
+                    "timestamp": (
+                        session.get(
+                            "updated_at"
+                        )
+                        or session.get(
+                            "created_at"
+                        )
+                    ),
+                    "source": "session_engine"
+                }
+            )
+
+        return candidates
+
+
+    # =====================================================
+    # MEMORY RETRIEVAL
+    # =====================================================
+
+    def _retrieve_from_memory(
+        self,
+        project_id=None
+    ):
+        """
+        Retrieve structured memory objects
+        from the graph-backed memory layer.
+        """
+
+        if not self.memory_engine:
+            return []
+
+        if not self.graph_engine:
+            return []
+
+        try:
+
+            graph = self.graph_engine.export()
+
+        except Exception:
+
+            return []
+
+        if not isinstance(
+            graph,
+            dict
+        ):
+            return []
+
+        objects = (
+            graph.get("objects")
+            or graph.get("nodes")
+            or []
+        )
+
+        if isinstance(
+            objects,
+            dict
+        ):
+
+            objects = list(
+                objects.values()
+            )
+
+        candidates = []
+
+        for obj in objects:
+
+            if not isinstance(
+                obj,
+                dict
+            ):
+                continue
+
+            object_type = (
+                obj.get("type")
+                or obj.get("object_type")
+                or ""
+            )
+
+            source = (
+                obj.get("source")
+            )
+
+            is_memory = (
+                object_type == "memory"
+                or object_type == "memory_object"
+                or source == "session"
+                or "memory_id" in obj
+                or "knowledge" in obj
+            )
+
+            if not is_memory:
+                continue
+
+            candidate_project_id = (
+                obj.get(
+                    "project_id"
+                )
+            )
+
+            if (
+                project_id
+                and candidate_project_id
+                and candidate_project_id != project_id
+            ):
+                continue
+
+            text = self._extract_memory_text(
+                obj
+            )
+
+            if not text:
+                continue
+
+            candidates.append(
+                {
+                    "id": (
+                        obj.get(
+                            "memory_id"
+                        )
+                        or obj.get(
+                            "id"
+                        )
+                        or obj.get(
+                            "object_id"
+                        )
+                    ),
+                    "type": "memory",
+                    "text": text,
+                    "data": obj,
+                    "session_id": obj.get(
+                        "session_id"
+                    ),
+                    "project_id": candidate_project_id,
+                    "timestamp": (
+                        obj.get(
+                            "created_at"
+                        )
+                        or obj.get(
+                            "timestamp"
+                        )
+                        or obj.get(
+                            "updated_at"
+                        )
+                    ),
+                    "source": "memory_engine"
+                }
+            )
+
+        return candidates
+
+
+    # =====================================================
+    # MEMORY TEXT EXTRACTION
+    # =====================================================
+
+    def _extract_memory_text(
+        self,
+        memory
+    ):
+        """
+        Convert a structured MemoryEngine object
+        into searchable text.
+        """
+
+        if not isinstance(
+            memory,
+            dict
+        ):
+            return str(
+                memory
+            )
+
+        parts = []
+
+        content = memory.get(
+            "content"
+        )
+
+        if content:
+            parts.append(
+                str(
+                    content
+                )
+            )
+
+        knowledge = memory.get(
+            "knowledge"
+        )
+
+        if isinstance(
+            knowledge,
+            dict
+        ):
+
+            for field in [
+                "goals",
+                "decisions",
+                "next_steps",
+                "artifacts"
+            ]:
+
+                values = knowledge.get(
+                    field,
+                    []
+                )
+
+                if isinstance(
+                    values,
+                    list
+                ):
+
+                    parts.extend(
+                        str(value)
+                        for value in values
+                    )
+
+                elif values:
+
+                    parts.append(
+                        str(
+                            values
+                        )
+                    )
+
+        return " ".join(
+            parts
+        ).strip()
+
+
+    # =====================================================
+    # SCORING
+    # =====================================================
+
+    def _score_candidate(
+        self,
+        candidate,
+        raw_query,
+        normalized_query,
+        tokens,
+        expanded_tokens,
+        query_type=None
+    ):
+        """
+        Score one candidate.
+        """
+
+        text = candidate.get(
+            "text",
+            ""
+        )
+
+        normalized_text = self.normalize(
+            text
+        )
+
+        candidate_tokens = set(
+            self.tokenize(
+                normalized_text
+            )
+        )
+
+        score = 0
+
+        explanation = []
+
+        # -------------------------------------------------
+        # EXACT PHRASE
+        # -------------------------------------------------
+
+        if (
+            normalized_query
+            and normalized_query in normalized_text
+        ):
+
+            score += 50
+
+            explanation.append(
+                {
+                    "type": "exact_phrase",
+                    "score": 50
+                }
+            )
+
+        # -------------------------------------------------
+        # TOKEN MATCH
+        # -------------------------------------------------
+
+        matched_tokens = [
+            token
+            for token in tokens
+            if token in candidate_tokens
+        ]
+
+        if matched_tokens:
+
+            token_score = (
+                len(
+                    matched_tokens
+                ) * 10
+            )
+
+            score += token_score
+
+            explanation.append(
+                {
+                    "type": "token_match",
+                    "tokens": matched_tokens,
+                    "score": token_score
+                }
+            )
+
+        # -------------------------------------------------
+        # EXPANDED MATCH
+        # -------------------------------------------------
+
+        expanded_matches = [
+            token
+            for token in expanded_tokens
+            if (
+                token in candidate_tokens
+                and token not in matched_tokens
+            )
+        ]
+
+        if expanded_matches:
+
+            expansion_score = (
+                len(
+                    expanded_matches
+                ) * 3
+            )
+
+            score += expansion_score
+
+            explanation.append(
+                {
+                    "type": "expanded_match",
+                    "tokens": expanded_matches,
+                    "score": expansion_score
+                }
+            )
+
+        # -------------------------------------------------
+        # PARTIAL MATCH
+        # -------------------------------------------------
+
+        partial_matches = []
+
+        for query_token in tokens:
+
+            for candidate_token in candidate_tokens:
+
+                if (
+                    len(
+                        query_token
+                    ) >= 4
+                    and len(
+                        candidate_token
+                    ) >= 4
+                    and (
+                        query_token in candidate_token
+                        or candidate_token in query_token
+                    )
+                ):
+
+                    partial_matches.append(
+                        query_token
+                    )
+
+        partial_matches = list(
+            dict.fromkeys(
+                partial_matches
+            )
+        )
+
+        if partial_matches:
+
+            partial_score = (
+                len(
+                    partial_matches
+                ) * 3
+            )
+
+            score += partial_score
+
+            explanation.append(
+                {
+                    "type": "partial_match",
+                    "tokens": partial_matches,
+                    "score": partial_score
+                }
+            )
+
+        # -------------------------------------------------
+        # TYPE RELEVANCE
+        # -------------------------------------------------
+
+        candidate_type = candidate.get(
+            "type"
+        )
+
+        if (
+            query_type
+            and query_type != "all"
+        ):
+
+            if candidate_type == query_type:
+
+                score += 20
+
+                explanation.append(
+                    {
+                        "type": "type_match",
+                        "score": 20
+                    }
+                )
+
+            else:
+
+                score -= 2
+
+        # -------------------------------------------------
+        # RECENCY
+        # -------------------------------------------------
+
+        recency_score = self.recency_score(
+            candidate.get(
+                "timestamp"
+            )
+        )
+
+        if recency_score > 0:
+
+            score += recency_score
+
+            explanation.append(
+                {
+                    "type": "recency_signal",
+                    "score": recency_score
+                }
+            )
+
+        # -------------------------------------------------
+        # SOURCE RELIABILITY
+        # -------------------------------------------------
+
+        source = candidate.get(
+            "source"
+        )
+
+        source_weights = {
+            "project_engine": 3,
+            "memory_engine": 3,
+            "session_engine": 2,
+            "graph_engine": 1
+        }
+
+        source_score = source_weights.get(
+            source,
+            0
+        )
+
+        if source_score:
+
+            score += source_score
+
+            explanation.append(
+                {
+                    "type": "source_reliability",
+                    "source": source,
+                    "score": source_score
+                }
+            )
+
+        result = dict(
+            candidate
+        )
+
+        result["score"] = max(
+            score,
+            0
+        )
+
+        result["match_explanation"] = explanation
+
+        return result
+
+
+    # =====================================================
+    # RECENCY
+    # =====================================================
+
+    def recency_score(
+        self,
+        timestamp
+    ):
+
+        if not timestamp:
+            return 0
+
+        try:
+
+            value = str(
+                timestamp
+            )
+
+            if value.endswith(
+                "Z"
+            ):
+
+                value = (
+                    value[:-1]
+                    + "+00:00"
+                )
+
+            parsed = datetime.fromisoformat(
+                value
+            )
+
+            if parsed.tzinfo is None:
+
+                parsed = parsed.replace(
+                    tzinfo=timezone.utc
+                )
+
+            now = datetime.now(
+                timezone.utc
+            )
+
+            age_days = (
+                now - parsed
+            ).total_seconds() / 86400
+
+            if age_days < 1:
+                return 5
+
+            if age_days < 7:
+                return 4
+
+            if age_days < 30:
+                return 3
+
+            if age_days < 90:
+                return 2
+
+            if age_days < 365:
+                return 1
+
+            return 0
+
+        except Exception:
+
+            return 0
+
+
+    # =====================================================
+    # DUPLICATE REMOVAL
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        results
+    ):
+
+        unique = []
+
+        seen_ids = set()
+
+        seen_fingerprints = set()
+
+        for result in results:
+
+            object_id = (
+                result.get("id")
+                or result.get("object_id")
+            )
+
+            if object_id:
+
+                if object_id in seen_ids:
+
+                    continue
+
+                seen_ids.add(
+                    object_id
+                )
+
+            text = self.normalize(
+                result.get(
+                    "text",
+                    ""
+                )
+            )
+
+            fingerprint = (
+                result.get("type"),
+                text,
+                result.get("session_id"),
+                result.get("project_id")
+            )
+
+            if fingerprint in seen_fingerprints:
+
+                continue
+
+            seen_fingerprints.add(
+                fingerprint
+            )
+
+            unique.append(
+                result
+            )
+
+        return unique
+
+
+    # =====================================================
+    # TEXT EXTRACTION
+    # =====================================================
+
+    def _extract_text(
+        self,
+        obj
+    ):
+
+        if not isinstance(
+            obj,
+            dict
+        ):
+
+            return str(
+                obj
+            )
+
+        preferred_fields = [
+            "text",
+            "content",
+            "decision",
+            "goal",
+            "idea",
+            "artifact",
+            "path",
+            "name",
+            "title",
+            "summary",
+            "description"
+        ]
+
+        parts = []
+
+        for field in preferred_fields:
+
+            value = obj.get(
+                field
+            )
+
+            if value is None:
+
+                continue
+
+            if isinstance(
+                value,
+                (
+                    str,
+                    int,
+                    float
+                )
+            ):
+
+                parts.append(
+                    str(
+                        value
+                    )
+                )
+
+        if parts:
+
+            return " ".join(
+                parts
+            )
+
+        return ""
+
+
+
+    # =====================================================
+    # =========================================================
+    # INTERNAL TEXT NORMALIZATION
+    # Backward-compatible API used by tests and legacy callers
+    # =========================================================
+    def _normalize_text(self, text):
+        """
+        Normalize text for internal query processing.
+
+        Backward-compatible internal API.
+        Delegates to the canonical normalization pipeline when available.
+        """
+        if text is None:
+            return ""
+
+        text = str(text)
+
+        # Use existing canonical normalizer if available
+        for name in (
+            "normalize_text",
+            "normalize_query",
+            "_normalize_query",
+        ):
+            method = getattr(self, name, None)
+            if callable(method) and name != "_normalize_text":
+                try:
+                    result = method(text)
+
+                    # Some normalizers return structured data
+                    if isinstance(result, dict):
+                        return result.get(
+                            "normalized_query",
+                            result.get("text", text)
+                        )
+
+                    return str(result)
+
+                except TypeError:
+                    pass
+
+        # Safe fallback normalization
+        import re
+        import unicodedata
+
+        text = unicodedata.normalize("NFKC", text)
+
+        # Persian/Arabic character normalization
+        replacements = {
+            "ي": "ی",
+            "ى": "ی",
+            "ك": "ک",
+            "ۀ": "ه",
+            "ة": "ه",
+            "ؤ": "و",
+            "إ": "ا",
+            "أ": "ا",
+            "ٱ": "ا",
+        }
+
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+
+        # Normalize whitespace
+        text = re.sub(r"\\s+", " ", text)
+
+        return text.strip().lower()
+
+
+    # BACKWARD-COMPATIBILITY SEARCH API
+    # =====================================================
+
+    def search_decisions(
+        self,
+        query,
+        top_k=None,
+        project_id=None,
+        session_id=None
+    ):
+        """
+        Backward-compatible decision search API.
+
+        Delegates to the unified query engine while preserving
+        the legacy public interface.
+        """
+
+        return self.query(
+            query=query,
+            query_type="decision",
+            top_k=top_k,
+            project_id=project_id,
+            session_id=session_id
+        )
+
+
+
+    def search_artifacts(
+        self,
+        query,
+        top_k=None,
+        project_id=None,
+        session_id=None
+    ):
+        return self.query(
+            query=query,
+            query_type="artifact",
+            top_k=top_k,
+            project_id=project_id,
+            session_id=session_id
+        )
+
+    # =====================================================
+    # EMPTY RESULT
+    # =====================================================
+
+
+    def _empty_result(
+        self,
+        query
+    ):
+
+        return {
+            "query": query,
+            "normalized_query": self.normalize(
+                query
+            ),
+            "intent": "all",
+            "tokens": [],
+            "expanded_tokens": [],
+            "results": [],
+            "total_results": 0,
+            "engine_version": self.VERSION,
+            "timestamp": self._now()
+        }
+
+
+    # =====================================================
+    # UTIL
+    # =====================================================
+
+    def _now(
+        self
+    ):
+
+        return datetime.now(
+            timezone.utc
+        ).isoformat()
+
+
+
+    def _deduplicate(self, results):
+        """
+        Remove duplicate search results while preserving ranking order.
+
+        Duplicate identity is determined by:
+        1. Explicit result id when available
+        2. Session/artifact/object identity
+        3. Normalized text fallback
+        """
+
+        if not results:
+            return []
+
+        unique = []
+        seen = set()
+
+        for result in results:
+            if not isinstance(result, dict):
+                continue
+
+            data = result.get("data") or {}
+
+            identity = (
+                result.get("id")
+                or result.get("result_id")
+                or data.get("id")
+                or data.get("session_id")
+                or data.get("artifact_id")
+                or data.get("object_id")
+            )
+
+            if identity is not None:
+                key = (
+                    result.get("type", ""),
+                    str(identity)
+                )
+            else:
+                text_value = result.get("text", "")
+
+                if isinstance(text_value, str):
+                    normalized = " ".join(
+                        text_value.lower().split()
+                    )
+                else:
+                    normalized = str(text_value)
+
+                key = (
+                    result.get("type", ""),
+                    normalized
+                )
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+            unique.append(result)
+
+        return unique
+

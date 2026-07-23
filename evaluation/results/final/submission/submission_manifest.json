@@ -1,0 +1,36 @@
+{
+    "created_at": "2026-07-19T07:45:56.143300+00:00",
+    "package_type": "journal_agnostic_submission_package",
+    "manuscript_status": "final_quality_gate_passed",
+    "manuscript": {
+        "markdown": "evaluation/results/final/submission/CRME_SUBMISSION_PACKAGE.md",
+        "latex": "evaluation/results/final/submission/CRME_SUBMISSION_PACKAGE.tex"
+    },
+    "bibliography": "evaluation/results/final/submission/references.bib",
+    "figures": [
+        "evaluation/results/final/submission/figures/component_contribution.csv",
+        "evaluation/results/final/submission/figures/component_contribution_ranking.png"
+    ],
+    "tables": [
+        "evaluation/results/final/submission/tables/baseline_metrics.tex",
+        "evaluation/results/final/submission/tables/ablation_results.tex",
+        "evaluation/results/final/submission/tables/component_ranking.tex"
+    ],
+    "readme": "evaluation/results/final/submission/README_SUBMISSION.md",
+    "sources": {
+        "final_manuscript": "evaluation/results/final/manuscript",
+        "canonical_evaluation": "evaluation/results/final/evaluation_summary.json",
+        "claim_audit": "evaluation/results/final/paper/claim_audit",
+        "consistency_audit": "evaluation/results/final/paper/consistency_audit"
+    },
+    "journal_adapters": [
+        "IEEE",
+        "Elsevier",
+        "Generic Article"
+    ],
+    "evidence_policy": {
+        "canonical_evidence_mutated": false,
+        "unsupported_claims_promoted": false,
+        "fabricated_references_added": false
+    }
+}

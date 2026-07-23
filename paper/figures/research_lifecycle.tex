@@ -1,0 +1,71 @@
+\begin{tikzpicture}[
+node distance=7mm,
+box/.style={
+rectangle,
+rounded corners,
+draw,
+align=center,
+font=\scriptsize,
+minimum width=22mm,
+minimum height=7mm
+},
+arrow/.style={
+-{Latex[length=2mm]},
+thick
+},
+feedback/.style={
+-{Latex[length=2mm]},
+dashed,
+thick
+}
+]
+
+
+\node[box](idea){Idea};
+
+\node[box,below=of idea](hypothesis)
+{Hypothesis};
+
+\node[box,below=of hypothesis](decision)
+{Decision};
+
+\node[box,below=of decision](experiment)
+{Experiment};
+
+\node[box,below=of experiment](result)
+{Result};
+
+\node[box,below=of result](artifact)
+{Artifact};
+
+\node[box,below=of artifact](publication)
+{Publication};
+
+
+\draw[arrow](idea)--(hypothesis);
+\draw[arrow](hypothesis)--(decision);
+\draw[arrow](decision)--(experiment);
+\draw[arrow](experiment)--(result);
+\draw[arrow](result)--(artifact);
+\draw[arrow](artifact)--(publication);
+
+
+\draw[feedback]
+(publication.east)
+.. controls +(25mm,0) and +(25mm,0) ..
+(idea.east);
+
+
+\node[
+draw,
+dashed,
+rounded corners,
+fit=(idea)(publication),
+inner sep=7mm,
+label={[font=\scriptsize]above:
+CRME Research Lifecycle Memory}
+]{};
+
+
+\end{tikzpicture}
+

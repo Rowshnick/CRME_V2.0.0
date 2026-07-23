@@ -1,0 +1,22 @@
+{
+    "created_at": "2026-07-19T11:45:14.373493+00:00",
+    "protocol": {
+        "name": "CRME Multi-Run Evaluation Protocol",
+        "version": "1.0.0",
+        "created_at": "2026-07-19T11:45:14.373475+00:00"
+    },
+    "status": {
+        "protocol": {
+            "name": "CRME Multi-Run Evaluation Protocol",
+            "version": "1.0.0",
+            "created_at": "2026-07-19T11:45:14.373475+00:00"
+        },
+        "total_runs": 0,
+        "unique_scenarios": 0,
+        "configurations": [],
+        "paired_groups": 0,
+        "statistical_readiness": "SINGLE_RUN_ONLY"
+    },
+    "runs": [],
+    "paired_groups": []
+}

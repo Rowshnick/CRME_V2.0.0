@@ -1,0 +1,97 @@
+# ==========================================================
+# CRME - Git Ignore
+# ==========================================================
+
+# ----------------------------------------------------------
+# Python
+# ----------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.Python
+
+# IDE
+.idea/
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.pytype/
+.pyre/
+.ruff_cache/
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# ----------------------------------------------------------
+# CRME Runtime Data
+# ----------------------------------------------------------
+memory/
+memory_test/
+
+storage/
+exports/
+snapshots/
+
+logs/
+tmp/
+temp/
+
+# Runtime session files
+CRME_latest_snapshot.json
+input_chat.txt
+test_memory_input.txt*
+
+# Generated verification folders
+exports/*_verify/
+exports/package_build/
+
+# ----------------------------------------------------------
+# Local backups (NOT Git)
+# ----------------------------------------------------------
+archive/
+backups/
+
+# ----------------------------------------------------------
+# Temporary files
+# ----------------------------------------------------------
+*~
+*.swp
+*.swo
+
+# ----------------------------------------------------------
+# Termux
+# ----------------------------------------------------------
+~
+
+# ----------------------------------------------------------
+# Optional (uncomment if needed)
+# ----------------------------------------------------------
+# *.zip
+# *.tar.gz
+# *.7z
+cleanup_report.txt

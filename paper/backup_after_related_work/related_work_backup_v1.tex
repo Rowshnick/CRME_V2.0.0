@@ -1,0 +1,131 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\subsection{Knowledge Management Systems}
+
+Knowledge Management Systems (KMS) have been extensively adopted to support the organization, storage, retrieval, and sharing of information within enterprises and research-oriented environments.
+
+Traditional KMS approaches primarily focus on collecting and indexing knowledge artifacts, enabling efficient access to stored information. However, these systems generally represent knowledge as static resources and provide limited capabilities for modeling the dynamic evolution of research activities.
+
+Scientific research is inherently iterative, where ideas, hypotheses, decisions, experiments, and artifacts continuously influence each other over time. Therefore, artifact-centric knowledge management approaches are insufficient for preserving the complete contextual history and rationale behind research progress.
+
+
+\subsection{Scientific Workflow Management Systems}
+
+Scientific Workflow Management Systems (SWMS) provide mechanisms for designing, executing, and monitoring computational research processes. These systems significantly contribute to automation, experimental reproducibility, and workflow coordination by representing computational tasks, dependencies, and execution pipelines.
+
+However, their primary emphasis is operational process execution rather than modeling the cognitive and contextual dimensions of research. Elements such as research motivations, alternative decisions, evolving hypotheses, and knowledge accumulation are typically outside the scope of workflow descriptions.
+
+Consequently, scientific workflow systems provide valuable execution management capabilities but do not fully address the requirements of long-term research memory and contextual continuity.
+
+
+\subsection{Knowledge Graph-Based Approaches}
+
+Knowledge Graph (KG) approaches have demonstrated strong capabilities for representing complex relationships among heterogeneous information entities.
+
+By modeling knowledge as interconnected nodes and edges, knowledge graphs enable semantic search, information integration, and reasoning over structured knowledge representations.
+
+Nevertheless, most existing knowledge graph approaches primarily focus on structural semantic relationships and provide limited support for representing temporal research evolution, decision history, and the progressive transformation of research artifacts.
+
+CRME extends this perspective by combining semantic relationships with temporal context, research lifecycle modeling, and provenance-aware knowledge evolution.
+
+
+\subsection{Research Provenance Management Systems}
+
+Research provenance systems aim to improve transparency, reproducibility, and accountability by recording the origin, transformation, and utilization history of research artifacts.
+
+Existing provenance approaches provide important mechanisms for tracking datasets, computational workflows, and experimental outputs.
+
+However, many provenance systems mainly concentrate on technical artifact lineage and provide limited representation of the reasoning processes, decisions, and contextual factors that lead to artifact creation.
+
+CRME incorporates provenance information as an integrated component of research memory, connecting artifacts with decisions, research sessions, and evolving research objects.
+
+
+\subsection{Persistent Memory Architectures}
+
+Recent developments in intelligent systems have increased interest in persistent memory architectures that enable contextual information retrieval and long-term adaptation.
+
+Existing memory architectures mainly focus on maintaining interaction context, improving information retrieval, and supporting adaptive system behavior.
+
+However, research environments require additional capabilities beyond conversational continuity, including structured research object representation, decision traceability, artifact provenance, and lifecycle-aware knowledge evolution.
+
+Therefore, a dedicated research memory framework must consider the complete trajectory of scientific activities rather than isolated information storage.
+
+
+\subsection{Research Gap}
+
+Although previous approaches address important aspects of knowledge organization, workflow management, semantic representation, provenance tracking, and persistent memory, no unified framework currently provides an integrated representation of the complete research lifecycle.
+
+The main research gap can be summarized as the absence of a research-oriented memory architecture capable of simultaneously supporting:
+
+\begin{itemize}
+    \item semantic organization of research knowledge,
+    \item temporal continuity across research sessions,
+    \item decision traceability and rationale preservation,
+    \item provenance-aware artifact management,
+    \item lifecycle-oriented research memory evolution.
+\end{itemize}
+
+To address this gap, CRME introduces a structured research memory architecture that represents research activities as interconnected and evolving knowledge entities. Unlike conventional approaches that manage isolated artifacts or workflows, CRME models the relationships among ideas, decisions, experiments, artifacts, and accumulated knowledge throughout the research lifecycle.
+
+
+\subsection{Comparison with Existing Approaches}
+
+Table~\ref{tab:related_work_comparison} summarizes the differences between CRME and representative existing approaches.
+
+Unlike previous systems that primarily address individual aspects of research management, CRME integrates semantic representation, temporal continuity, decision history, and provenance-aware artifact management within a unified research memory architecture.
+
+
+\begin{table}[t]
+\centering
+\caption{Comparison Between CRME and Existing Research Management Approaches}
+\label{tab:related_work_comparison}
+\begin{tabular}{p{2.1cm}p{2.0cm}p{2.0cm}p{2.0cm}}
+\toprule
+Approach &
+Knowledge Organization &
+Temporal Continuity &
+Decision and Provenance Modeling
+\\
+\midrule
+
+Knowledge Management Systems &
+Yes &
+Limited &
+Limited
+\\
+
+Scientific Workflow Systems &
+Partial &
+Limited &
+No
+\\
+
+Knowledge Graph Approaches &
+Yes &
+Partial &
+Limited
+\\
+
+Provenance Management Systems &
+Artifact-focused &
+Limited &
+Partial
+\\
+
+Persistent Memory Architectures &
+Context-oriented &
+Partial &
+Limited
+\\
+
+CRME Framework &
+Yes &
+Yes &
+Yes
+\\
+
+\bottomrule
+\end{tabular}
+\end{table}
+

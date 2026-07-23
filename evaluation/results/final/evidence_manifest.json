@@ -1,0 +1,26 @@
+{
+    "manifest_version": "1.0",
+    "created_at": "2026-07-18T21:34:03.082054+00:00",
+    "purpose": "Research provenance and reproducibility manifest for CRME evaluation evidence.",
+    "raw_sources": [
+        {
+            "type": "comparison",
+            "path": "evaluation/results/comparisons/CMP-20260718174203.json"
+        },
+        {
+            "type": "ablation",
+            "path": "evaluation/results/ablations/ABL-20260718175551.json"
+        },
+        {
+            "type": "statistics",
+            "path": "evaluation/results/statistics/STAT-20260718181200.json"
+        }
+    ],
+    "derived_outputs": [
+        "evaluation_summary.json",
+        "evaluation_summary.md",
+        "tables/",
+        "figures/"
+    ],
+    "raw_data_modified": false
+}

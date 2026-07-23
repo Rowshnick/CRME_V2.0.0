@@ -1,0 +1,205 @@
+{
+    "analysis_id": "STAT-20260718181200",
+    "source_type": "ablation",
+    "source_id": "ABL-20260718181200",
+    "dataset": "SRCB_v1",
+    "engine_version": "1.0",
+    "metrics": {
+        "baseline": {
+            "mcs": 47.5,
+            "srs": 100,
+            "kgq": 40.0,
+            "rrs": 43.33,
+            "ces": 57.71
+        },
+        "component_statistics": {
+            "mcs": {
+                "mean": 43.0,
+                "std": 6.7082,
+                "min": 32.5,
+                "max": 47.5,
+                "count": 5
+            },
+            "srs": {
+                "mean": 100.0,
+                "std": 0.0,
+                "min": 100,
+                "max": 100,
+                "count": 5
+            },
+            "kgq": {
+                "mean": 32.0,
+                "std": 17.8885,
+                "min": 0.0,
+                "max": 40.0,
+                "count": 5
+            },
+            "rrs": {
+                "mean": 34.666,
+                "std": 12.3793,
+                "min": 16.67,
+                "max": 43.33,
+                "count": 5
+            },
+            "ces": {
+                "mean": 52.416,
+                "std": 4.7267,
+                "min": 47.29,
+                "max": 57.71,
+                "count": 5
+            }
+        }
+    },
+    "component_analysis": {
+        "relations": {
+            "removed_configuration": "WITHOUT_RELATIONS",
+            "metrics": {
+                "mcs": {
+                    "baseline": 47.5,
+                    "ablated": 47.5,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "srs": {
+                    "baseline": 100,
+                    "ablated": 100,
+                    "absolute_degradation": 0,
+                    "relative_degradation": 0.0
+                },
+                "kgq": {
+                    "baseline": 40.0,
+                    "ablated": 0.0,
+                    "absolute_degradation": 40.0,
+                    "relative_degradation": 100.0
+                },
+                "rrs": {
+                    "baseline": 43.33,
+                    "ablated": 43.33,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "ces": {
+                    "baseline": 57.71,
+                    "ablated": 47.71,
+                    "absolute_degradation": 10.0,
+                    "relative_degradation": 17.328
+                }
+            },
+            "total_degradation": 50.0,
+            "contribution_rank": 2
+        },
+        "sessions": {
+            "removed_configuration": "WITHOUT_SESSIONS",
+            "metrics": {
+                "mcs": {
+                    "baseline": 47.5,
+                    "ablated": 47.5,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "srs": {
+                    "baseline": 100,
+                    "ablated": 100,
+                    "absolute_degradation": 0,
+                    "relative_degradation": 0.0
+                },
+                "kgq": {
+                    "baseline": 40.0,
+                    "ablated": 40.0,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "rrs": {
+                    "baseline": 43.33,
+                    "ablated": 26.67,
+                    "absolute_degradation": 16.66,
+                    "relative_degradation": 38.4491
+                },
+                "ces": {
+                    "baseline": 57.71,
+                    "ablated": 53.54,
+                    "absolute_degradation": 4.17,
+                    "relative_degradation": 7.2258
+                }
+            },
+            "total_degradation": 20.83,
+            "contribution_rank": 3
+        },
+        "decisions": {
+            "removed_configuration": "WITHOUT_DECISIONS",
+            "metrics": {
+                "mcs": {
+                    "baseline": 47.5,
+                    "ablated": 32.5,
+                    "absolute_degradation": 15.0,
+                    "relative_degradation": 31.5789
+                },
+                "srs": {
+                    "baseline": 100,
+                    "ablated": 100.0,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "kgq": {
+                    "baseline": 40.0,
+                    "ablated": 40.0,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "rrs": {
+                    "baseline": 43.33,
+                    "ablated": 16.67,
+                    "absolute_degradation": 26.66,
+                    "relative_degradation": 61.5278
+                },
+                "ces": {
+                    "baseline": 57.71,
+                    "ablated": 47.29,
+                    "absolute_degradation": 10.42,
+                    "relative_degradation": 18.0558
+                }
+            },
+            "total_degradation": 52.08,
+            "contribution_rank": 1
+        },
+        "artifacts": {
+            "removed_configuration": "WITHOUT_ARTIFACTS",
+            "metrics": {
+                "mcs": {
+                    "baseline": 47.5,
+                    "ablated": 40.0,
+                    "absolute_degradation": 7.5,
+                    "relative_degradation": 15.7895
+                },
+                "srs": {
+                    "baseline": 100,
+                    "ablated": 100,
+                    "absolute_degradation": 0,
+                    "relative_degradation": 0.0
+                },
+                "kgq": {
+                    "baseline": 40.0,
+                    "ablated": 40.0,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "rrs": {
+                    "baseline": 43.33,
+                    "ablated": 43.33,
+                    "absolute_degradation": 0.0,
+                    "relative_degradation": 0.0
+                },
+                "ces": {
+                    "baseline": 57.71,
+                    "ablated": 55.83,
+                    "absolute_degradation": 1.88,
+                    "relative_degradation": 3.2577
+                }
+            },
+            "total_degradation": 9.38,
+            "contribution_rank": 4
+        }
+    },
+    "created_at": "2026-07-18T18:12:00.910277+00:00",
+    "status": "completed"
+}

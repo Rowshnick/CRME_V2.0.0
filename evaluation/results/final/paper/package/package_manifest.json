@@ -1,0 +1,27 @@
+{
+    "created_at": "2026-07-18T22:31:47.111293+00:00",
+    "builder": "PaperPackageBuilder",
+    "source_directory": "evaluation/results/final/paper",
+    "outputs": [
+        "CRME_RESULTS_PACKAGE.md",
+        "CRME_RESULTS_PACKAGE.tex"
+    ],
+    "source_sections": [
+        "sections/results.md",
+        "sections/ablation.md",
+        "sections/statistics.md",
+        "sections/discussion.md",
+        "sections/threats_to_validity.md",
+        "sections/reproducibility.md"
+    ],
+    "source_tables": [
+        "tables/baseline_metrics.tex",
+        "tables/ablation_results.tex",
+        "tables/component_ranking.tex"
+    ],
+    "source_figures": [
+        "figures/component_contribution_ranking.png",
+        "figures/component_contribution.csv"
+    ],
+    "status": "completed"
+}

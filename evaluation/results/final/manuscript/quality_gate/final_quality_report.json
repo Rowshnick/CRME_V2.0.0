@@ -1,0 +1,155 @@
+{
+    "created_at": "2026-07-19T07:42:13.130550+00:00",
+    "overall_status": "PASS",
+    "checks": {
+        "section_completeness": {
+            "status": "PASS",
+            "required_sections": [
+                "Abstract",
+                "Introduction",
+                "Evaluation Design",
+                "Results",
+                "Ablation Study",
+                "Statistical Analysis",
+                "Discussion",
+                "Threats to Validity",
+                "Reproducibility"
+            ],
+            "missing_sections": [],
+            "markdown_sections": [
+                "Evidence-Backed Manuscript: CRME",
+                "Abstract",
+                "1. Introduction",
+                "2. Evaluation Design",
+                "3. Results",
+                "4. Ablation Study",
+                "Component Ranking",
+                "5. Statistical Analysis",
+                "6. Discussion",
+                "7. Threats to Validity",
+                "8. Reproducibility",
+                "9. Evidence Governance",
+                "10. Conclusion",
+                "Evidence Artifacts"
+            ],
+            "latex_sections": [
+                "Introduction",
+                "Evaluation Design",
+                "Results",
+                "Ablation Study",
+                "Statistical Analysis",
+                "Discussion",
+                "Threats to Validity",
+                "Reproducibility",
+                "Conclusion"
+            ]
+        },
+        "evidence_consistency": {
+            "status": "PASS",
+            "checks": [
+                {
+                    "check": "q1_consistency_audit",
+                    "status": "PASS",
+                    "value": "PASS"
+                },
+                {
+                    "check": "experiment_status",
+                    "status": "PASS",
+                    "value": "completed"
+                },
+                {
+                    "check": "comparison_status",
+                    "status": "PASS",
+                    "value": "completed"
+                },
+                {
+                    "check": "statistics_status",
+                    "status": "PASS",
+                    "value": "completed"
+                }
+            ]
+        },
+        "numeric_consistency": {
+            "status": "PASS",
+            "expected_metrics": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 43.33,
+                "ces": 57.71
+            },
+            "extracted_metrics": {
+                "MCS": 47.5,
+                "SRS": 100.0,
+                "KGQ": 40.0,
+                "RRS": 43.33,
+                "CES": 57.71
+            },
+            "mismatches": []
+        },
+        "component_ranking": {
+            "status": "PASS",
+            "expected_order": [
+                "decisions",
+                "relations",
+                "sessions",
+                "artifacts"
+            ],
+            "expected_values": [
+                52.08,
+                50.0,
+                20.83,
+                9.38
+            ],
+            "missing_components": [],
+            "descending_order": true
+        },
+        "claim_safety": {
+            "status": "PASS",
+            "unsafe_claims": []
+        },
+        "latex_integrity": {
+            "status": "PASS",
+            "checks": [
+                {
+                    "check": "document_start",
+                    "status": "PASS"
+                },
+                {
+                    "check": "document_end",
+                    "status": "PASS"
+                },
+                {
+                    "check": "environment_balance",
+                    "status": "PASS",
+                    "structural_errors": [],
+                    "token_count": 14
+                },
+                {
+                    "check": "required_commands",
+                    "status": "PASS",
+                    "missing_commands": []
+                }
+            ]
+        },
+        "reproducibility": {
+            "status": "PASS",
+            "missing_phrases": [],
+            "manifest_valid": true,
+            "found_in_markdown": true,
+            "found_in_latex": true
+        },
+        "manifest_integrity": {
+            "status": "PASS",
+            "missing_keys": []
+        }
+    },
+    "evidence": {
+        "summary": "evaluation/results/final/evaluation_summary.json",
+        "claim_audit": "evaluation/results/final/paper/claim_audit/claim_evidence_matrix.json",
+        "consistency_audit": "evaluation/results/final/paper/consistency_audit/q1_consistency_audit.json",
+        "manuscript_markdown": "evaluation/results/final/manuscript/CRME_MANUSCRIPT.md",
+        "manuscript_latex": "evaluation/results/final/manuscript/CRME_MANUSCRIPT.tex",
+        "manuscript_manifest": "evaluation/results/final/manuscript/manuscript_manifest.json"
+    }
+}

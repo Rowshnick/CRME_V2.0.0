@@ -1,0 +1,131 @@
+{
+    "comparison_id": "CMP-20260718164820",
+    "experiment_id": "EXP-20260718164810",
+    "created_at": "2026-07-18T16:48:20.560687+00:00",
+    "datasets": [
+        "SRCB_v1"
+    ],
+    "metrics": {
+        "mcs": {
+            "values": [
+                {
+                    "dataset": "SRCB_v1",
+                    "value": 47.5
+                }
+            ],
+            "average": 47.5,
+            "min": 47.5,
+            "max": 47.5,
+            "std": 0.0
+        },
+        "srs": {
+            "values": [
+                {
+                    "dataset": "SRCB_v1",
+                    "value": 100.0
+                }
+            ],
+            "average": 100.0,
+            "min": 100.0,
+            "max": 100.0,
+            "std": 0.0
+        },
+        "kgq": {
+            "values": [
+                {
+                    "dataset": "SRCB_v1",
+                    "value": 40.0
+                }
+            ],
+            "average": 40.0,
+            "min": 40.0,
+            "max": 40.0,
+            "std": 0.0
+        },
+        "rrs": {
+            "values": [
+                {
+                    "dataset": "SRCB_v1",
+                    "value": 43.33
+                }
+            ],
+            "average": 43.33,
+            "min": 43.33,
+            "max": 43.33,
+            "std": 0.0
+        },
+        "ces": {
+            "values": [
+                {
+                    "dataset": "SRCB_v1",
+                    "value": 57.71
+                }
+            ],
+            "average": 57.71,
+            "min": 57.71,
+            "max": 57.71,
+            "std": 0.0
+        }
+    },
+    "rankings": {
+        "mcs": [
+            {
+                "rank": 1,
+                "dataset": "SRCB_v1",
+                "value": 47.5
+            }
+        ],
+        "srs": [
+            {
+                "rank": 1,
+                "dataset": "SRCB_v1",
+                "value": 100.0
+            }
+        ],
+        "kgq": [
+            {
+                "rank": 1,
+                "dataset": "SRCB_v1",
+                "value": 40.0
+            }
+        ],
+        "rrs": [
+            {
+                "rank": 1,
+                "dataset": "SRCB_v1",
+                "value": 43.33
+            }
+        ],
+        "ces": [
+            {
+                "rank": 1,
+                "dataset": "SRCB_v1",
+                "value": 57.71
+            }
+        ]
+    },
+    "best_dataset": {
+        "mcs": {
+            "dataset": "SRCB_v1",
+            "value": 47.5
+        },
+        "srs": {
+            "dataset": "SRCB_v1",
+            "value": 100.0
+        },
+        "kgq": {
+            "dataset": "SRCB_v1",
+            "value": 40.0
+        },
+        "rrs": {
+            "dataset": "SRCB_v1",
+            "value": 43.33
+        },
+        "ces": {
+            "dataset": "SRCB_v1",
+            "value": 57.71
+        }
+    },
+    "status": "completed",
+    "finished_at": "2026-07-18T16:48:20.560797+00:00"
+}

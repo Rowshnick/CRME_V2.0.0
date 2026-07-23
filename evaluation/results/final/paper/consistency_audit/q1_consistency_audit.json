@@ -1,0 +1,43 @@
+{
+    "created_at": "2026-07-18T22:24:20.934266+00:00",
+    "audit_type": "Q1 consistency audit",
+    "overall_status": "PASS",
+    "checks": [
+        {
+            "check_id": "Q1-C001",
+            "check": "Ablation ranking is consistent between canonical summary and figure data.",
+            "status": "PASS"
+        },
+        {
+            "check_id": "Q1-C002",
+            "check": "Unsupported claims are explicitly flagged rather than presented as established findings.",
+            "status": "PASS",
+            "details": [
+                "C006"
+            ]
+        },
+        {
+            "check_id": "Q1-C003",
+            "check": "Component ranking is ordered by descending aggregate degradation.",
+            "status": "PASS"
+        },
+        {
+            "check_id": "Q1-C004",
+            "check": "Highest and lowest contribution claims match the ranking evidence.",
+            "status": "PASS",
+            "highest_component": "decisions",
+            "lowest_component": "artifacts"
+        },
+        {
+            "check_id": "Q1-C005",
+            "check": "Baseline metrics are available for the reported evaluation.",
+            "status": "PASS",
+            "metric_count": 5
+        }
+    ],
+    "evidence": {
+        "summary": "evaluation/results/final/evaluation_summary.json",
+        "claim_audit": "evaluation/results/final/paper/claim_audit/claim_evidence_matrix.json",
+        "ranking_data": "evaluation/results/final/paper/figures/component_contribution.csv"
+    }
+}

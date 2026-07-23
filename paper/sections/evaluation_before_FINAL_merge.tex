@@ -1,0 +1,531 @@
+\section{Evaluation}
+\label{sec:evaluation}
+
+
+This section evaluates CRME through a scenario-based validation
+framework. The evaluation focuses on four research questions related
+to memory continuity, semantic organization, provenance preservation,
+and research workflow support.
+
+
+
+\subsection{Research Questions}
+
+
+The evaluation is guided by the following research questions:
+
+
+\textbf{RQ1: Memory Continuity.}
+Can CRME preserve and recover research knowledge across separated
+research sessions?
+
+
+\textbf{RQ2: Semantic Organization.}
+Can CRME represent relationships between research elements beyond
+traditional document-based storage?
+
+
+\textbf{RQ3: Provenance Preservation.}
+Can CRME maintain traceable evolution paths for research decisions,
+artifacts, and results?
+
+
+\textbf{RQ4: Research Workflow Support.}
+Can CRME support continuous research activities from initial ideas
+toward scientific outputs?
+
+
+
+% =====================================================
+\subsection{Experimental Environment}
+% =====================================================
+
+
+The evaluation was conducted using a controlled research workflow
+scenario containing multiple research sessions, project updates,
+decisions, and generated artifacts.
+
+The objective of this evaluation is to validate the architectural
+capabilities of CRME rather than measure general artificial intelligence
+performance.
+
+
+\begin{table}[t]
+\caption{Experimental Environment}
+\label{tab:experimental_environment}
+
+\centering
+\small
+
+\begin{tabular}{ll}
+
+\toprule
+
+Component & Configuration \\
+
+\midrule
+
+Operating System & Linux / Termux Environment \\
+
+Implementation & Python 3.x \\
+
+Storage Model & JSON-based Persistent Memory \\
+
+Architecture & Modular Research Framework \\
+
+Evaluation Type & Scenario-based Validation \\
+
+\bottomrule
+
+\end{tabular}
+
+\end{table}
+
+
+
+% =====================================================
+\subsection{Evaluation Metrics}
+% =====================================================
+
+
+The following evaluation dimensions were considered:
+
+
+\begin{itemize}
+
+\item
+\textbf{Memory Persistence:}
+Ability to preserve research information beyond individual sessions.
+
+
+\item
+\textbf{Semantic Connectivity:}
+Ability to represent relationships between research objects.
+
+
+\item
+\textbf{Provenance Completeness:}
+Ability to track the origin and evolution of research information.
+
+
+\item
+\textbf{Workflow Continuity:}
+Ability to support future research activities using previous knowledge.
+
+
+\end{itemize}
+
+
+
+
+% =====================================================
+\subsection{Baseline Comparison}
+% =====================================================
+
+
+Table~\ref{tab:baseline_comparison} compares CRME with representative
+research knowledge management approaches.
+
+
+\begin{table}[t]
+
+\caption{Capability Comparison Between CRME and Existing Approaches}
+
+\label{tab:baseline_comparison}
+
+
+\centering
+\small
+
+
+\begin{tabular}{lcccc}
+
+\toprule
+
+Approach &
+Memory &
+Semantic &
+Provenance &
+Continuity
+\\
+
+\midrule
+
+
+Document Systems &
+Limited &
+No &
+No &
+No
+\\
+
+
+Workflow Systems &
+Partial &
+Partial &
+Yes &
+Limited
+\\
+
+
+Knowledge Graph Systems &
+Partial &
+Yes &
+Partial &
+Limited
+\\
+
+
+Retrieval-Augmented Systems &
+Partial &
+Yes &
+Limited &
+Limited
+\\
+
+
+CRME &
+Yes &
+Yes &
+Yes &
+Yes
+\\
+
+
+\bottomrule
+
+\end{tabular}
+
+
+\end{table}
+
+
+
+
+% =====================================================
+\subsection{Ablation Study}
+% =====================================================
+
+
+To analyze the contribution of individual CRME components,
+an architectural ablation analysis was performed by removing
+major modules.
+
+
+The evaluated configurations include:
+
+
+\begin{itemize}
+
+
+\item
+\textbf{Full CRME:}
+Complete architecture including memory, session, project,
+and semantic components.
+
+
+\item
+\textbf{Without Semantic Engine:}
+Removes semantic relationship discovery capability.
+
+
+\item
+\textbf{Without Session Engine:}
+Removes cross-session continuity management.
+
+
+\item
+\textbf{Without Project Engine:}
+Removes project evolution tracking capability.
+
+
+\end{itemize}
+
+
+
+\begin{table}[t]
+
+\caption{Ablation Analysis of CRME Components}
+
+\label{tab:ablation_study}
+
+
+\centering
+\small
+
+
+\begin{tabular}{lcccc}
+
+\toprule
+
+Configuration &
+Memory &
+Semantic &
+Session &
+Project
+\\
+
+\midrule
+
+
+Full CRME &
+Yes &
+Yes &
+Yes &
+Yes
+\\
+
+
+Without Semantic Engine &
+Yes &
+No &
+Yes &
+Yes
+\\
+
+
+Without Session Engine &
+Yes &
+Yes &
+No &
+Yes
+\\
+
+
+Without Project Engine &
+Yes &
+Yes &
+Yes &
+No
+\\
+
+
+\bottomrule
+
+
+\end{tabular}
+
+
+\end{table}
+
+
+
+
+
+% =====================================================
+\subsection{Requirement Validation}
+% =====================================================
+
+
+Table~\ref{tab:validation_matrix} summarizes the relationship between
+CRME requirements and implemented modules.
+
+
+\begin{table}[t]
+
+\caption{CRME Requirement Validation Matrix}
+
+\label{tab:validation_matrix}
+
+
+\centering
+\small
+
+
+\begin{tabular}{lll}
+
+\toprule
+
+Requirement &
+Module &
+Status
+\\
+
+\midrule
+
+
+Persistent Memory &
+Memory Engine &
+Validated
+\\
+
+
+Session Recovery &
+Session Engine &
+Validated
+\\
+
+
+Project Evolution &
+Project Engine &
+Validated
+\\
+
+
+Semantic Linking &
+Semantic Engine &
+Validated
+\\
+
+
+Knowledge Querying &
+Query Engine &
+Validated
+\\
+
+
+\bottomrule
+
+
+\end{tabular}
+
+
+\end{table}
+
+
+
+
+% =====================================================
+\subsection{Scalability Analysis}
+% =====================================================
+
+
+The modular architecture of CRME enables incremental expansion
+of research memory without modifying the underlying object model.
+
+The current evaluation focuses on architectural scalability,
+including modular separation, component independence, and future
+support for quantitative benchmarking.
+
+
+
+\begin{table}[t]
+
+\caption{Architectural Scalability Analysis}
+
+\label{tab:scalability_analysis}
+
+
+\centering
+\small
+
+
+\begin{tabular}{ll}
+
+\toprule
+
+Dimension &
+Observation
+\\
+
+\midrule
+
+
+Memory Growth &
+New research objects can be incrementally added
+\\
+
+
+Component Extension &
+Independent engines enable modular expansion
+\\
+
+
+Knowledge Representation &
+Object model supports additional research entities
+\\
+
+
+Future Benchmarking &
+Retrieval accuracy and efficiency evaluation
+\\
+
+
+\bottomrule
+
+
+\end{tabular}
+
+
+\end{table}
+
+
+
+
+
+% =====================================================
+\subsection{Discussion}
+% =====================================================
+
+
+The evaluation demonstrates that CRME integrates capabilities that
+are typically distributed across independent research management
+systems.
+
+The main contributions include:
+
+
+\begin{itemize}
+
+
+\item persistent research memory,
+
+\item semantic organization,
+
+\item provenance tracking,
+
+\item session continuity,
+
+\item project evolution management.
+
+
+\end{itemize}
+
+
+These properties enable a research environment where previous
+knowledge can continuously influence future research activities.
+
+
+
+% =====================================================
+\subsection{Threats to Validity}
+% =====================================================
+
+
+Several limitations should be considered.
+
+
+First, the current evaluation is based on controlled scenarios and
+does not represent a large-scale user study.
+
+
+Second, quantitative benchmarking using large research datasets is
+required to measure retrieval accuracy and computational efficiency.
+
+
+Third, semantic quality depends on the accuracy and completeness of
+stored research representations.
+
+
+These limitations define future experimental directions.
+
+
+
+% =====================================================
+\subsection{Reproducibility Statement}
+% =====================================================
+
+
+CRME follows a modular implementation approach.
+
+The core components, including memory management, session management,
+project management, semantic processing, and query mechanisms, are
+implemented as independent modules.
+
+The modular architecture enables future researchers to reproduce,
+extend, and evaluate individual components separately.
+
+
+
+
+

@@ -1,0 +1,167 @@
+\section{Related Work}
+\label{sec:related_work}
+
+
+Research knowledge management has been investigated from multiple
+perspectives including information organization, workflow management,
+semantic representation, provenance modeling, and intelligent retrieval.
+However, most existing approaches address individual aspects of the
+research process rather than maintaining a persistent memory of research
+evolution.
+
+
+\subsection{Research Knowledge Management Systems}
+
+Traditional knowledge management approaches focus on capturing,
+organizing, and sharing organizational knowledge. Davenport and Prusak
+highlighted the importance of knowledge processes for creating and
+transferring valuable information inside organizations
+\cite{davenport1998working}. Nonaka and Takeuchi introduced the dynamic
+knowledge creation model, emphasizing the transformation between tacit
+and explicit knowledge
+\cite{nonaka1994dynamic}.
+
+Although these approaches provide important foundations for knowledge
+management, they were not specifically designed for computational and
+scientific research environments where knowledge continuously evolves
+through experiments, decisions, and artifacts.
+
+
+\subsection{Scientific Workflow and Research Platforms}
+
+Scientific workflow systems have significantly improved computational
+reproducibility by enabling researchers to describe and execute complex
+experiments. Pegasus, for example, provides workflow planning and
+execution support for large-scale scientific applications
+\cite{deelman2009pegasus}. Similarly, myExperiment supports sharing and
+reuse of scientific workflows and research objects
+\cite{goble2008myexperiment}.
+
+However, workflow-oriented systems mainly preserve computational
+processes and execution dependencies. They provide limited support for
+capturing the reasoning process behind research decisions, hypotheses,
+and evolving research directions.
+
+
+\subsection{Semantic Knowledge Representation and Provenance}
+
+Semantic technologies and knowledge graphs provide mechanisms for
+representing relationships between entities and enabling machine-readable
+knowledge organization. The Semantic Web vision introduced by
+Berners-Lee et al. established foundations for structured knowledge
+representation on the Web
+\cite{bernerslee2001semantic}. Recent surveys have demonstrated the
+importance of knowledge graphs for integrating heterogeneous information
+sources
+\cite{hogan2021knowledge}.
+
+Provenance models have also become important for improving
+trustworthiness and reproducibility. The PROV model provides a formal
+representation for describing relationships between entities,
+activities, and agents involved in data generation
+\cite{moreau2013prov}. Workflow provenance approaches further extend
+these concepts to scientific processes
+\cite{garijo2013workflow}.
+
+Nevertheless, provenance approaches generally focus on tracking data
+origin and transformation history rather than maintaining a complete
+research memory containing ideas, decisions, and project evolution.
+
+
+\subsection{Retrieval-Augmented and Generative AI Approaches}
+
+Recent advances in retrieval-based artificial intelligence have improved
+access to large-scale information repositories. Retrieval-Augmented
+Generation (RAG) approaches combine external knowledge retrieval with
+language models to improve generated responses
+\cite{lewis2020retrieval}. Generative AI systems have further increased
+the potential for intelligent assistance in research environments
+\cite{park2023generative}.
+
+Despite these advances, most current systems operate primarily on
+existing documents or retrieved information. They usually lack a
+persistent representation of individual research trajectories, historical
+decisions, and long-term project memory.
+
+
+\subsection{Research Gap}
+
+Table~\ref{tab:related_work_comparison} summarizes the limitations of
+representative approaches compared with CRME.
+
+\begin{table}[t]
+\caption{Comparison of Research Knowledge Management Approaches}
+\label{tab:related_work_comparison}
+
+\centering
+\small
+
+\begin{tabular}{lcccc}
+\toprule
+Approach &
+Memory &
+Semantic &
+Provenance &
+Research Evolution
+\\
+\midrule
+
+Knowledge Management &
+Partial &
+No &
+Limited &
+No
+\\
+
+Workflow Systems &
+Limited &
+Limited &
+Yes &
+No
+\\
+
+Knowledge Graphs &
+Partial &
+Yes &
+Partial &
+Limited
+\\
+
+Provenance Models &
+No &
+Partial &
+Yes &
+Limited
+\\
+
+RAG-based Systems &
+Document &
+Yes &
+No &
+No
+\\
+
+CRME &
+Yes &
+Yes &
+Yes &
+Yes
+\\
+
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+
+Existing approaches provide valuable capabilities for storing,
+executing, representing, or retrieving research information. However,
+there remains a gap in systems that combine persistent research memory,
+semantic organization, provenance tracking, and lifecycle-aware research
+continuity in a unified framework.
+
+CRME addresses this gap by introducing a research memory layer that
+models scientific activities as connected knowledge objects and preserves
+the evolution of research processes over time.
+
+

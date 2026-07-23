@@ -1,0 +1,112 @@
+{
+    "created_at": "2026-07-18T21:34:03.081282+00:00",
+    "status": "completed",
+    "evaluation_pipeline": [
+        "experiment",
+        "comparison",
+        "ablation",
+        "statistics"
+    ],
+    "experiment": {
+        "experiment_id": "EXP-20260718174203",
+        "dataset_count": 2,
+        "metric_count": 5,
+        "metrics": [
+            "mcs",
+            "srs",
+            "kgq",
+            "rrs",
+            "ces"
+        ],
+        "status": "completed"
+    },
+    "comparison": {
+        "comparison_id": "CMP-20260718174203",
+        "experiment_id": "EXP-20260718174203",
+        "datasets": 2,
+        "metrics": [
+            "mcs",
+            "srs",
+            "kgq",
+            "rrs",
+            "ces"
+        ],
+        "best_dataset": {
+            "mcs": {
+                "dataset": "SRCB_v1",
+                "value": 47.5
+            },
+            "srs": {
+                "dataset": "SRCB_v1",
+                "value": 100.0
+            },
+            "kgq": {
+                "dataset": "SRCB_v1",
+                "value": 40.0
+            },
+            "rrs": {
+                "dataset": "SRCB_v1",
+                "value": 43.33
+            },
+            "ces": {
+                "dataset": "SRCB_v1",
+                "value": 57.71
+            }
+        },
+        "relative_improvement": {
+            "mcs": 3066.67,
+            "srs": 0.0,
+            "kgq": null,
+            "rrs": null,
+            "ces": 127.38
+        },
+        "status": "completed"
+    },
+    "ablation": {
+        "experiment_id": "ABL-20260718175551",
+        "dataset": "SRCB_v1_1.1",
+        "configuration_count": 5,
+        "component_count": 4,
+        "components": [
+            "relations",
+            "sessions",
+            "decisions",
+            "artifacts"
+        ],
+        "status": "completed"
+    },
+    "statistics": {
+        "analysis_id": "STAT-20260718181200",
+        "dataset": "SRCB_v1",
+        "baseline_metrics": {
+            "mcs": 47.5,
+            "srs": 100,
+            "kgq": 40.0,
+            "rrs": 43.33,
+            "ces": 57.71
+        },
+        "component_ranking": [
+            {
+                "component": "decisions",
+                "total_degradation": 52.08,
+                "contribution_rank": 1
+            },
+            {
+                "component": "relations",
+                "total_degradation": 50.0,
+                "contribution_rank": 2
+            },
+            {
+                "component": "sessions",
+                "total_degradation": 20.83,
+                "contribution_rank": 3
+            },
+            {
+                "component": "artifacts",
+                "total_degradation": 9.38,
+                "contribution_rank": 4
+            }
+        ],
+        "status": "completed"
+    }
+}

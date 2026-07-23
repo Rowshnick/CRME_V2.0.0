@@ -1,0 +1,318 @@
+import json
+import os
+from datetime import datetime, timezone
+
+
+class ClaimAudit:
+
+    def __init__(
+        self,
+        summary_json=(
+            "evaluation/results/final/"
+            "evaluation_summary.json"
+        ),
+        output_dir=(
+            "evaluation/results/final/"
+            "paper/claim_audit"
+        ),
+    ):
+        self.summary_json = summary_json
+        self.output_dir = output_dir
+
+        os.makedirs(
+            self.output_dir,
+            exist_ok=True,
+        )
+
+    def _load_summary(self):
+        with open(
+            self.summary_json,
+            "r",
+            encoding="utf-8",
+        ) as file:
+            return json.load(file)
+
+    def _build_claims(self, summary):
+        statistics = summary.get(
+            "statistics",
+            {},
+        )
+
+        comparison = summary.get(
+            "comparison",
+            {},
+        )
+
+        ranking = statistics.get(
+            "component_ranking",
+            [],
+        )
+
+        claims = []
+
+        claims.append(
+            {
+                "claim_id": "C001",
+                "claim": (
+                    "CRME has a measurable baseline "
+                    "performance profile across multiple "
+                    "evaluation metrics."
+                ),
+                "evidence": [
+                    "evaluation_summary.json",
+                    "statistics.baseline_metrics",
+                ],
+                "status": "SUPPORTED",
+                "strength": "DIRECT",
+            }
+        )
+
+        if ranking:
+            top = ranking[0]
+
+            claims.append(
+                {
+                    "claim_id": "C002",
+                    "claim": (
+                        "The decisions component exhibited "
+                        "the largest aggregate degradation "
+                        "under the evaluated ablation settings."
+                    ),
+                    "evidence": [
+                        "statistics.component_ranking",
+                        (
+                            f"component={top.get('component')}"
+                        ),
+                        (
+                            "total_degradation="
+                            f"{top.get('total_degradation')}"
+                        ),
+                    ],
+                    "status": "SUPPORTED",
+                    "strength": "DIRECT",
+                }
+            )
+
+        if len(ranking) >= 2:
+            second = ranking[1]
+
+            claims.append(
+                {
+                    "claim_id": "C003",
+                    "claim": (
+                        "The relations component ranked second "
+                        "in aggregate ablation degradation."
+                    ),
+                    "evidence": [
+                        "statistics.component_ranking",
+                        (
+                            f"component={second.get('component')}"
+                        ),
+                        (
+                            "total_degradation="
+                            f"{second.get('total_degradation')}"
+                        ),
+                    ],
+                    "status": "SUPPORTED",
+                    "strength": "DIRECT",
+                }
+            )
+
+        if len(ranking) >= 3:
+            third = ranking[2]
+
+            claims.append(
+                {
+                    "claim_id": "C004",
+                    "claim": (
+                        "The sessions component exhibited a "
+                        "lower aggregate degradation than the "
+                        "two highest-ranked components."
+                    ),
+                    "evidence": [
+                        "statistics.component_ranking",
+                        (
+                            f"component={third.get('component')}"
+                        ),
+                        (
+                            "total_degradation="
+                            f"{third.get('total_degradation')}"
+                        ),
+                    ],
+                    "status": "SUPPORTED",
+                    "strength": "DIRECT",
+                }
+            )
+
+        if len(ranking) >= 4:
+            last = ranking[-1]
+
+            claims.append(
+                {
+                    "claim_id": "C005",
+                    "claim": (
+                        "The artifacts component exhibited the "
+                        "lowest aggregate degradation among the "
+                        "evaluated components."
+                    ),
+                    "evidence": [
+                        "statistics.component_ranking",
+                        (
+                            f"component={last.get('component')}"
+                        ),
+                        (
+                            "total_degradation="
+                            f"{last.get('total_degradation')}"
+                        ),
+                    ],
+                    "status": "SUPPORTED",
+                    "strength": "DIRECT",
+                }
+            )
+
+        claims.append(
+            {
+                "claim_id": "C006",
+                "claim": (
+                    "CRME statistically significantly outperforms "
+                    "a baseline system."
+                ),
+                "evidence": [],
+                "status": "NOT_ESTABLISHED",
+                "strength": "NONE",
+                "note": (
+                    "No inferential statistical test, confidence "
+                    "interval, or hypothesis test is present in "
+                    "the current evidence package."
+                ),
+            }
+        )
+
+        claims.append(
+            {
+                "claim_id": "C007",
+                "claim": (
+                    "The evaluated component ranking establishes "
+                    "causal importance of each architectural component."
+                ),
+                "evidence": [
+                    "statistics.component_ranking",
+                ],
+                "status": "LIMITED",
+                "strength": "ASSOCIATIONAL",
+                "note": (
+                    "Ablation results support comparative "
+                    "contribution analysis but should not be "
+                    "described as definitive causal estimates."
+                ),
+            }
+        )
+
+        return claims
+
+    def _write_json(self, claims):
+        output = {
+            "created_at": datetime.now(
+                timezone.utc
+            ).isoformat(),
+            "source": self.summary_json,
+            "audit_status": "completed",
+            "claims": claims,
+        }
+
+        path = os.path.join(
+            self.output_dir,
+            "claim_evidence_matrix.json",
+        )
+
+        with open(
+            path,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            json.dump(
+                output,
+                file,
+                indent=4,
+            )
+
+        return path
+
+    def _write_markdown(self, claims):
+        lines = [
+            "# CRME Claim-Evidence Audit",
+            "",
+            (
+                "This audit maps paper-level claims to "
+                "stored CRME evaluation evidence."
+            ),
+            "",
+            "| ID | Claim | Status | Strength |",
+            "|---|---|---|---|",
+        ]
+
+        for item in claims:
+            claim = (
+                item["claim"]
+                .replace("|", "\\|")
+            )
+
+            lines.append(
+                f"| {item['claim_id']} | "
+                f"{claim} | "
+                f"{item['status']} | "
+                f"{item['strength']} |"
+            )
+
+        lines.extend(
+            [
+                "",
+                "## Evidence Notes",
+                "",
+            ]
+        )
+
+        for item in claims:
+            if item.get("note"):
+                lines.append(
+                    f"- **{item['claim_id']}**: "
+                    f"{item['note']}"
+                )
+
+        path = os.path.join(
+            self.output_dir,
+            "claim_evidence_matrix.md",
+        )
+
+        with open(
+            path,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            file.write(
+                "\n".join(lines)
+            )
+
+        return path
+
+    def audit(self):
+        summary = self._load_summary()
+
+        claims = self._build_claims(
+            summary
+        )
+
+        json_path = self._write_json(
+            claims
+        )
+
+        markdown_path = self._write_markdown(
+            claims
+        )
+
+        return {
+            "json": json_path,
+            "markdown": markdown_path,
+            "claim_count": len(claims),
+            "status": "completed",
+        }

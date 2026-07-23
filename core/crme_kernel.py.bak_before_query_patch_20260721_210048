@@ -1,0 +1,341 @@
+from typing import Dict, Any, Optional
+from datetime import datetime
+
+from core.context_exporter import ContextExporter
+from core.query_engine import QueryEngine
+
+class CRMEKernel:
+    """
+    CRME Research Core Orchestrator
+
+    Main Pipeline:
+
+    SessionEngine
+          |
+          ↓
+    MemoryEngine
+          |
+          ↓
+    GraphEngine
+          |
+          ↓
+    ProjectEngine
+          |
+          ↓
+    Research Ledger
+          |
+          ↓
+    Context Export Layer
+    """
+
+
+    def __init__(
+        self,
+        session_engine,
+        project_engine,
+        memory_engine,
+        graph_engine,
+        query_engine=None
+    ):
+        self.session_engine = session_engine
+        self.project_engine = project_engine
+        self.memory_engine = memory_engine
+        self.graph_engine = graph_engine
+        self.query_engine = query_engine or        QueryEngine(
+          project_engine=self.project_engine,
+          graph_engine=self.graph_engine,
+          session_engine=self.session_engine,
+          memory_engine=self.memory_engine
+        ) 
+
+        # Context Transfer Layer
+
+        self.context_exporter = ContextExporter(
+            project_engine,
+            session_engine,
+            graph_engine
+        )
+
+
+
+    # =====================================================
+    # START SESSION
+    # =====================================================
+
+    def start_session(
+        self,
+        project_id: Optional[str] = None,
+        metadata: Dict = None
+    ):
+
+        session_id = self.session_engine.create_session(
+            project_id=project_id,
+            metadata=metadata
+        )
+
+
+        self.project_engine.handle_session_event(
+            "session_created",
+            {
+                "session_id": session_id,
+                "project_id": project_id,
+                "metadata": metadata or {},
+                "state": {},
+                "version": 1
+            }
+        )
+
+
+        return session_id
+
+
+
+    # =====================================================
+    # UPDATE RESEARCH PIPELINE
+    # =====================================================
+
+    def update(
+        self,
+        session_id: str,
+        update: Dict[str, Any]
+    ):
+
+
+        self.session_engine.update_session(
+            session_id,
+            update
+        )
+
+
+        snapshot = self.session_engine.get_snapshot(
+            session_id
+        )
+
+
+        if not snapshot:
+            return None
+
+
+
+        state = snapshot.get(
+            "state",
+            {}
+        )
+
+
+        research_lines = []
+
+
+        for decision in state.get(
+            "decisions",
+            []
+        ):
+
+            research_lines.append(
+                f"Decision: {decision}"
+            )
+
+
+        for goal in state.get(
+            "goals",
+            []
+        ):
+
+            research_lines.append(
+                f"Goal: {goal}"
+            )
+
+
+        for artifact in state.get(
+            "artifacts",
+            []
+        ):
+
+            research_lines.append(
+                f"File: {artifact}"
+            )
+
+
+
+        research_text = "\n".join(
+            research_lines
+        )
+
+
+
+        memory = None
+
+
+        if research_text.strip():
+
+
+            self.memory_engine.text = research_text
+
+
+            memory = self.memory_engine.create_memory_object(
+                source="session"
+            )
+
+
+            self.graph_engine.add_memory(
+                memory
+            )
+
+
+            self.project_engine.update_graph_metrics(
+                self.graph_engine.export()
+            )
+
+
+
+        self.project_engine.handle_session_event(
+            "session_updated",
+            snapshot
+        )
+
+
+
+        return {
+
+            "session_id":
+                session_id,
+
+            "memory":
+                memory,
+
+            "graph":
+                self.graph_engine.export()
+
+        }
+
+
+    # =====================================================
+    # SEMANTIC QUERY
+    # =====================================================
+
+    def query(
+      self,
+      query,
+      query_type=None,
+      top_k=None,
+      project_id=None,
+      session_id=None
+    ):
+      return self.query_engine.query(
+        query=query,
+        query_type=query_type,
+        top_k=top_k,
+        project_id=project_id,
+        session_id=session_id
+      ) 
+ 
+
+    # =====================================================
+    # GET COMPLETE STATE
+    # =====================================================
+
+    def get_latest_state(
+        self,
+        session_id=None
+    ):
+
+
+        session = None
+
+
+        if session_id:
+
+            session = self.session_engine.get_snapshot(
+                session_id
+            )
+
+
+        return {
+
+            "session":
+                session,
+
+            "project":
+                self.project_engine.to_dict(),
+
+            "summary":
+                self.project_engine.summary(),
+
+            "graph":
+                self.graph_engine.export()
+
+        }
+
+
+
+    # =====================================================
+    # NEW FEATURE
+    # LLM INDEPENDENT CONTEXT EXPORT
+    # =====================================================
+
+    def export_context(
+        self
+    ):
+
+        return self.context_exporter.build()
+
+
+
+    def save_context_snapshot(
+        self,
+        filename="CRME_Context_Snapshot_v1.1.json"
+    ):
+
+        return self.context_exporter.save_snapshot(
+            filename
+        )
+
+
+
+    def save_project_brief(
+        self,
+        filename="CRME_PROJECT_BRIEF.md"
+    ):
+
+        return self.context_exporter.save_brief(
+            filename
+        )
+
+
+
+    # =====================================================
+    # EXPORT RESEARCH PACKAGE
+    # =====================================================
+
+    def export_research_package(
+        self
+    ):
+
+        return {
+
+            "project":
+                self.project_engine.to_dict(),
+
+            "graph":
+                self.graph_engine.export(),
+
+            "context":
+                self.export_context(),
+
+            "timestamp":
+                self._now()
+
+        }
+
+
+
+    # =====================================================
+    # UTIL
+    # =====================================================
+
+    def _now(
+        self
+    ):
+
+        return datetime.utcnow().isoformat()
+

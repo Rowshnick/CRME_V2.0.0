@@ -1,0 +1,269 @@
+{
+    "report_type": "ablation_study",
+    "report_version": "1.0",
+    "experiment_id": "ABL-20260718175551",
+    "dataset": "SRCB_v1_1.1",
+    "configurations": 5,
+    "results": [
+        {
+            "experiment_id": "ABL-20260718175551",
+            "configuration": "FULL",
+            "dataset": "SRCB_v1",
+            "removed_component": null,
+            "metrics": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 43.33,
+                "ces": 57.71
+            },
+            "execution": {
+                "execution_version": "1.6-dev",
+                "started_at": "2026-07-18T17:55:51.821487+00:00",
+                "finished_at": "2026-07-18T17:55:51.821492+00:00",
+                "runtime_sec": 2e-06,
+                "knowledge_nodes": 50,
+                "relations": 100,
+                "sessions": 10,
+                "memories": 70,
+                "decisions": 20,
+                "goals": 0,
+                "artifacts": 15,
+                "ledger_entries": 20,
+                "processed_objects": 50,
+                "records": 0,
+                "total_processed": 195
+            },
+            "created_at": "2026-07-18T17:55:51.821523+00:00"
+        },
+        {
+            "experiment_id": "ABL-20260718175551",
+            "configuration": "WITHOUT_RELATIONS",
+            "dataset": "SRCB_v1",
+            "removed_component": "relations",
+            "metrics": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 0.0,
+                "rrs": 43.33,
+                "ces": 47.71
+            },
+            "execution": {
+                "execution_version": "1.6-dev",
+                "started_at": "2026-07-18T17:55:51.821776+00:00",
+                "finished_at": "2026-07-18T17:55:51.821779+00:00",
+                "runtime_sec": 2e-06,
+                "knowledge_nodes": 50,
+                "relations": 0,
+                "sessions": 10,
+                "memories": 70,
+                "decisions": 20,
+                "goals": 0,
+                "artifacts": 15,
+                "ledger_entries": 20,
+                "processed_objects": 50,
+                "records": 0,
+                "total_processed": 95
+            },
+            "created_at": "2026-07-18T17:55:51.821795+00:00"
+        },
+        {
+            "experiment_id": "ABL-20260718175551",
+            "configuration": "WITHOUT_SESSIONS",
+            "dataset": "SRCB_v1",
+            "removed_component": "sessions",
+            "metrics": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 26.67,
+                "ces": 53.54
+            },
+            "execution": {
+                "execution_version": "1.6-dev",
+                "started_at": "2026-07-18T17:55:51.822026+00:00",
+                "finished_at": "2026-07-18T17:55:51.822028+00:00",
+                "runtime_sec": 1e-06,
+                "knowledge_nodes": 50,
+                "relations": 100,
+                "sessions": 0,
+                "memories": 70,
+                "decisions": 20,
+                "goals": 0,
+                "artifacts": 15,
+                "ledger_entries": 20,
+                "processed_objects": 50,
+                "records": 0,
+                "total_processed": 185
+            },
+            "created_at": "2026-07-18T17:55:51.822038+00:00"
+        },
+        {
+            "experiment_id": "ABL-20260718175551",
+            "configuration": "WITHOUT_DECISIONS",
+            "dataset": "SRCB_v1",
+            "removed_component": "decisions",
+            "metrics": {
+                "mcs": 32.5,
+                "srs": 100.0,
+                "kgq": 40.0,
+                "rrs": 16.67,
+                "ces": 47.29
+            },
+            "execution": {
+                "execution_version": "1.6-dev",
+                "started_at": "2026-07-18T17:55:51.822273+00:00",
+                "finished_at": "2026-07-18T17:55:51.822274+00:00",
+                "runtime_sec": 1e-06,
+                "knowledge_nodes": 50,
+                "relations": 100,
+                "sessions": 10,
+                "memories": 50,
+                "decisions": 0,
+                "goals": 0,
+                "artifacts": 15,
+                "ledger_entries": 0,
+                "processed_objects": 50,
+                "records": 0,
+                "total_processed": 175
+            },
+            "created_at": "2026-07-18T17:55:51.822283+00:00"
+        },
+        {
+            "experiment_id": "ABL-20260718175551",
+            "configuration": "WITHOUT_ARTIFACTS",
+            "dataset": "SRCB_v1",
+            "removed_component": "artifacts",
+            "metrics": {
+                "mcs": 40.0,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 43.33,
+                "ces": 55.83
+            },
+            "execution": {
+                "execution_version": "1.6-dev",
+                "started_at": "2026-07-18T17:55:51.822516+00:00",
+                "finished_at": "2026-07-18T17:55:51.822517+00:00",
+                "runtime_sec": 1e-06,
+                "knowledge_nodes": 50,
+                "relations": 100,
+                "sessions": 10,
+                "memories": 70,
+                "decisions": 20,
+                "goals": 0,
+                "artifacts": 0,
+                "ledger_entries": 20,
+                "processed_objects": 50,
+                "records": 0,
+                "total_processed": 180
+            },
+            "created_at": "2026-07-18T17:55:51.822526+00:00"
+        }
+    ],
+    "analysis": {
+        "absolute_degradation": {
+            "WITHOUT_RELATIONS": {
+                "mcs": 0.0,
+                "srs": 0,
+                "kgq": 40.0,
+                "rrs": 0.0,
+                "ces": 10.0
+            },
+            "WITHOUT_SESSIONS": {
+                "mcs": 0.0,
+                "srs": 0,
+                "kgq": 0.0,
+                "rrs": 16.66,
+                "ces": 4.17
+            },
+            "WITHOUT_DECISIONS": {
+                "mcs": 15.0,
+                "srs": 0.0,
+                "kgq": 0.0,
+                "rrs": 26.66,
+                "ces": 10.42
+            },
+            "WITHOUT_ARTIFACTS": {
+                "mcs": 7.5,
+                "srs": 0,
+                "kgq": 0.0,
+                "rrs": 0.0,
+                "ces": 1.88
+            }
+        },
+        "relative_degradation": {
+            "WITHOUT_RELATIONS": {
+                "mcs": 0.0,
+                "srs": 0.0,
+                "kgq": 100.0,
+                "rrs": 0.0,
+                "ces": 17.33
+            },
+            "WITHOUT_SESSIONS": {
+                "mcs": 0.0,
+                "srs": 0.0,
+                "kgq": 0.0,
+                "rrs": 38.45,
+                "ces": 7.23
+            },
+            "WITHOUT_DECISIONS": {
+                "mcs": 31.58,
+                "srs": 0.0,
+                "kgq": 0.0,
+                "rrs": 61.53,
+                "ces": 18.06
+            },
+            "WITHOUT_ARTIFACTS": {
+                "mcs": 15.79,
+                "srs": 0.0,
+                "kgq": 0.0,
+                "rrs": 0.0,
+                "ces": 3.26
+            }
+        }
+    },
+    "component_contributions": {
+        "relations": {
+            "configuration": "WITHOUT_RELATIONS",
+            "metric_impact": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 0.0,
+                "rrs": 43.33,
+                "ces": 47.71
+            }
+        },
+        "sessions": {
+            "configuration": "WITHOUT_SESSIONS",
+            "metric_impact": {
+                "mcs": 47.5,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 26.67,
+                "ces": 53.54
+            }
+        },
+        "decisions": {
+            "configuration": "WITHOUT_DECISIONS",
+            "metric_impact": {
+                "mcs": 32.5,
+                "srs": 100.0,
+                "kgq": 40.0,
+                "rrs": 16.67,
+                "ces": 47.29
+            }
+        },
+        "artifacts": {
+            "configuration": "WITHOUT_ARTIFACTS",
+            "metric_impact": {
+                "mcs": 40.0,
+                "srs": 100,
+                "kgq": 40.0,
+                "rrs": 43.33,
+                "ces": 55.83
+            }
+        }
+    },
+    "created_at": "2026-07-18T17:55:51.836777+00:00"
+}

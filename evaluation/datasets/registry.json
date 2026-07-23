@@ -1,0 +1,85 @@
+{
+    "CRME_Test_1.0": {
+        "dataset_id": "CRME_Test_1.0",
+        "name": "CRME_Test",
+        "version": "1.0",
+        "source": "synthetic",
+        "path": "evaluation/datasets/test.json",
+        "description": "",
+        "metadata": {},
+        "created_at": "2026-07-17T17:34:33.178140"
+    },
+    "CRME_Synthetic_Large_1.0": {
+        "dataset_id": "CRME_Synthetic_Large_1.0",
+        "name": "CRME_Synthetic_Large",
+        "version": "1.0",
+        "source": "synthetic",
+        "path": "evaluation/datasets/synthetic_large.json",
+        "description": "Synthetic evaluation dataset",
+        "metadata": {
+            "samples": 10000,
+            "features": 20
+        },
+        "created_at": "2026-07-17T17:44:00.749122"
+    },
+    "UCI_Test_1.0": {
+        "dataset_id": "UCI_Test_1.0",
+        "name": "UCI_Test",
+        "version": "1.0",
+        "source": "public",
+        "path": "evaluation/datasets/uci_test.csv",
+        "description": "External public dataset",
+        "metadata": {
+            "provider": "UCI"
+        },
+        "created_at": "2026-07-17T17:44:00.774722"
+    },
+    "Manual_Test_1.0": {
+        "dataset_id": "Manual_Test_1.0",
+        "name": "Manual_Test",
+        "version": "1.0",
+        "source": "manual",
+        "path": "evaluation/datasets/manual.json",
+        "description": "Manually imported dataset",
+        "metadata": {},
+        "created_at": "2026-07-17T17:44:00.791313"
+    },
+    "CSV_Test_1.0": {
+        "dataset_id": "CSV_Test_1.0",
+        "name": "CSV_Test",
+        "version": "1.0",
+        "source": "manual",
+        "path": "evaluation/datasets/test_import.csv",
+        "description": "CSV imported dataset",
+        "metadata": {
+            "format": "csv",
+            "schema": {
+                "features": [
+                    "feature1",
+                    "feature2",
+                    "label"
+                ],
+                "samples": 3
+            }
+        },
+        "created_at": "2026-07-17T20:27:21.693170"
+    },
+    "SRCB_v1_1.1": {
+        "dataset_id": "SRCB_v1_1.1",
+        "name": "SRCB_v1",
+        "version": "1.1",
+        "source": "synthetic",
+        "path": "evaluation/datasets/SRCB_v1.json",
+        "description": "Synthetic Research Continuity Benchmark",
+        "metadata": {
+            "benchmark": "SRCB",
+            "format": "json",
+            "objects": 50,
+            "relations": 100,
+            "sessions": 10,
+            "decisions": 20,
+            "artifacts": 15
+        },
+        "created_at": "2026-07-18T13:13:37.739184"
+    }
+}

@@ -1,0 +1,361 @@
+\section{Experimental Setup and Evaluation}
+\label{sec:evaluation}
+
+\subsection{Experimental Objectives}
+
+The objective of the experimental evaluation is to assess the effectiveness of the proposed Cognitive Research Memory Engine (CRME) in supporting structured research memory management throughout the research lifecycle.
+
+Unlike conventional research management approaches that primarily focus on storing documents and artifacts, CRME aims to preserve the complete evolution of research knowledge, including research context, decisions, semantic relationships, and artifact provenance.
+
+The experimental evaluation investigates whether CRME provides measurable improvements in four major aspects of research memory management:
+
+\begin{itemize}
+    \item Knowledge organization,
+    \item Research context continuity,
+    \item Decision and artifact traceability,
+    \item Scalability of research memory management.
+\end{itemize}
+
+Accordingly, the evaluation addresses the following research questions:
+
+\textbf{RQ1:}
+Can a unified research memory architecture improve knowledge organization compared with conventional memory approaches?
+
+\textbf{RQ2:}
+Can temporal session-based memory preserve research decisions and contextual continuity across long-term research activities?
+
+\textbf{RQ3:}
+Can provenance-aware modeling improve research artifact reproducibility?
+
+\textbf{RQ4:}
+Can CRME maintain scalability as the amount of stored research knowledge increases?
+
+To answer these questions, three complementary evaluation strategies are adopted:
+
+\begin{itemize}
+    \item Benchmark comparison against baseline memory approaches.
+    \item Ablation analysis to investigate the contribution of individual CRME components.
+    \item Scalability analysis under increasing research memory sizes.
+\end{itemize}
+
+
+\subsection{Experimental Environment}
+
+The CRME framework has been implemented as a modular Python-based research memory system.
+
+The experimental environment consists of the following components:
+
+\begin{table}[h]
+\centering
+\caption{Experimental Environment Configuration}
+\label{tab:experimental_environment}
+
+\begin{tabular}{ll}
+\hline
+Component & Description\\
+\hline
+Programming Language & Python 3.x\\
+Architecture & Modular Research Memory Framework\\
+Execution Environment & Linux-based Environment\\
+Storage Model & Structured JSON Repository\\
+Evaluation Framework & Custom CRME Evaluation Modules\\
+Memory Representation & Research Object Instances\\
+\hline
+\end{tabular}
+
+\end{table}
+
+
+The implementation follows the modular architecture described in Section~\ref{sec:methodology}, where memory management, session continuity, semantic relationships, project evolution, and evaluation modules are independently implemented.
+
+
+\subsection{Evaluation Dataset and Benchmark Design}
+
+To enable systematic evaluation, we introduce the
+\textbf{Structured Cognitive Research Benchmark (SRCB)}.
+
+SRCB is designed to simulate realistic research memory environments by generating interconnected research objects with temporal dependencies and provenance relationships.
+
+Each benchmark instance contains:
+
+\begin{itemize}
+    \item Research objects,
+    \item Session histories,
+    \item Decision records,
+    \item Artifact relationships,
+    \item Semantic connections,
+    \item Temporal evolution information.
+\end{itemize}
+
+
+The benchmark generation process follows the research lifecycle model:
+
+\[
+Idea
+\rightarrow
+Hypothesis
+\rightarrow
+Decision
+\rightarrow
+Experiment
+\rightarrow
+Result
+\rightarrow
+Artifact
+\rightarrow
+Publication
+\]
+
+This design enables controlled and reproducible evaluation of CRME capabilities.
+
+
+\subsection{Evaluation Metrics}
+
+Four quantitative metrics are used to evaluate CRME performance.
+
+
+\subsubsection{Knowledge Organization Score (KOS)}
+
+KOS measures the ability of CRME to organize heterogeneous research entities and preserve meaningful relationships among them.
+
+\[
+KOS =
+\frac{Correctly\ Organized\ Relationships}
+{Total\ Expected\ Relationships}
+\]
+
+Higher KOS values indicate improved research knowledge organization.
+
+
+\subsubsection{Decision Traceability Score (DTS)}
+
+DTS evaluates the capability of CRME to preserve relationships between research decisions and their resulting outcomes.
+
+\[
+DTS =
+\frac{Traceable\ Decisions}
+{Total\ Decisions}
+\]
+
+Higher DTS values indicate improved explainability and research transparency.
+
+
+\subsubsection{Research State Retention (RSR)}
+
+RSR measures the ability of CRME to preserve historical research context across multiple sessions.
+
+\[
+RSR =
+\frac{Recovered\ Contextual\ Elements}
+{Total\ Contextual\ Elements}
+\]
+
+
+\subsubsection{Cognitive Retrieval Time (CRT)}
+
+CRT measures the time required to recover relevant research knowledge from stored memory.
+
+\[
+CRT = Retrieval\ Time
+\]
+
+Lower CRT values indicate more efficient research memory retrieval.
+
+\subsection{Baseline Comparison}
+
+To evaluate the effectiveness of CRME, the proposed framework is compared with representative baseline approaches.
+
+The selected baselines include:
+
+\begin{itemize}
+
+\item \textbf{File-Based Memory (FBM):}
+A conventional approach based on independent files and folders without explicit semantic relationships.
+
+\item \textbf{Knowledge Graph Only (KG):}
+A semantic representation approach without temporal session modeling.
+
+\item \textbf{AI Memory Architecture (AI-M):}
+A persistent memory approach designed mainly for conversational agents.
+
+\item \textbf{CRME:}
+The proposed lifecycle-oriented research memory framework.
+
+\end{itemize}
+
+
+The qualitative and quantitative benchmark comparison results are summarized in
+Table~\ref{tab:benchmark}.
+
+\input{tables/benchmark_table}
+
+
+
+\subsection{Ablation Study}
+
+An ablation study is conducted to analyze the contribution of individual CRME components.
+
+The following reduced configurations are evaluated:
+
+\begin{itemize}
+
+\item \textbf{CRME-Full:}
+Complete CRME architecture containing all proposed components.
+
+\item \textbf{CRME-NoGraph:}
+The Knowledge Graph component is removed to evaluate the effect of semantic relationship modeling.
+
+\item \textbf{CRME-NoSession:}
+The Session Engine is removed to evaluate the effect of temporal research continuity.
+
+\item \textbf{CRME-NoArtifact:}
+The Artifact Provenance Layer is removed to evaluate reproducibility preservation.
+
+\end{itemize}
+
+
+The evaluation metrics include:
+
+\begin{itemize}
+
+\item Knowledge Organization Score (KOS),
+\item Decision Traceability Score (DTS),
+\item Research State Retention (RSR),
+\item Cognitive Retrieval Time (CRT).
+
+\end{itemize}
+
+
+The quantitative ablation results are presented in
+Table~\ref{tab:ablation}.
+
+\input{tables/ablation_table}
+
+
+
+\subsection{Discussion of Ablation Results}
+
+The ablation analysis demonstrates the importance of each CRME component.
+
+Removing the Knowledge Graph component reduces the ability of CRME to preserve semantic relationships among research entities, resulting in degradation of knowledge organization performance.
+
+Removing the Session Engine negatively affects contextual continuity because historical research states cannot be effectively reconstructed across multiple sessions.
+
+Similarly, removing the Artifact Provenance Layer reduces reproducibility by weakening the connection between generated artifacts and their corresponding research decisions.
+
+The complete CRME architecture achieves the most balanced performance by jointly integrating semantic organization, temporal continuity, and provenance-aware modeling.
+
+\subsection{Scalability Analysis}
+
+The scalability analysis evaluates CRME performance under increasing research memory sizes.
+
+Experiments are performed using different numbers of research objects:
+
+\begin{itemize}
+
+\item 100 objects,
+\item 500 objects,
+\item 1,000 objects,
+\item 5,000 objects,
+\item 10,000 objects.
+
+\end{itemize}
+
+
+The measured factors include:
+
+\begin{itemize}
+
+\item Memory indexing time,
+\item Retrieval time,
+\item Context recovery performance,
+\item Storage growth.
+
+\end{itemize}
+
+
+The scalability evaluation results under increasing research memory sizes are reported in
+Table~\ref{tab:scalability}.
+
+\input{tables/scalability_table}
+
+
+The results demonstrate that CRME maintains efficient research memory management as the number of stored research objects increases.
+
+
+
+\subsection{Research Validation Matrix}
+
+To ensure alignment between research objectives and experimental evidence, a research validation matrix is introduced.
+
+The matrix maps research questions to evaluated claims, experiments, metrics, and evidence.
+
+
+\begin{table}[h]
+
+\centering
+
+\caption{Research Validation Matrix}
+
+\label{tab:validation_matrix}
+
+
+\begin{tabular}{p{2cm}p{3cm}p{3cm}p{2cm}}
+
+\hline
+
+RQ & Claim & Experiment & Metric\\
+
+\hline
+
+
+RQ1 &
+Knowledge organization improvement &
+Benchmark Comparison &
+KOS
+\\
+
+
+RQ2 &
+Context continuity preservation &
+Session Evaluation &
+DTS, RSR
+\\
+
+
+RQ3 &
+Artifact reproducibility improvement &
+Provenance Analysis &
+DTS, RSR
+\\
+
+
+RQ4 &
+Scalability improvement &
+Scalability Experiment &
+CRT
+\\
+
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+
+
+\subsection{Summary}
+
+This section introduced the experimental methodology used to evaluate CRME.
+
+The proposed evaluation framework combines benchmark comparison, quantitative metrics, ablation analysis, scalability testing, and research validation mapping.
+
+The benchmark evaluation investigates the improvement of structured research memory organization compared with conventional approaches.
+
+The ablation study demonstrates the contribution of individual CRME modules, including session continuity, semantic relationship modeling, and artifact provenance.
+
+The scalability analysis evaluates the capability of CRME to manage increasing amounts of research knowledge while preserving efficient retrieval performance.
+
+Together, these experiments provide a comprehensive evaluation framework for structured research memory management and establish the foundation for the result analysis presented in the following section.
+

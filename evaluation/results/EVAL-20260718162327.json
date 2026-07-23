@@ -1,0 +1,43 @@
+{
+    "evaluation_id": "EVAL-20260718162327",
+    "dataset": "SRCB_v1",
+    "benchmark": {
+        "benchmark_id": "BENCH-20260718162327",
+        "dataset": "SRCB_v1",
+        "dataset_type": "synthetic",
+        "runtime_sec": 0.000251,
+        "memory_mb": 0.0,
+        "cpu_time": 0.0,
+        "knowledge_nodes": 50,
+        "relations": 100,
+        "sessions": 10,
+        "memories": 70,
+        "decisions": 20,
+        "goals": 0,
+        "artifacts": 15,
+        "ledger_entries": 20,
+        "ces_score": 0.0,
+        "metadata": {
+            "engine": "BenchmarkEngine",
+            "version": "1.6-dev",
+            "dataset_type": "structured_research_benchmark",
+            "total_records": 195,
+            "execution_version": "1.6-dev",
+            "started_at": "2026-07-18T16:23:27.533133+00:00",
+            "finished_at": "2026-07-18T16:23:27.533404+00:00"
+        },
+        "timestamp": "2026-07-18T16:23:27.533144",
+        "samples": 50,
+        "processed_objects": 50
+    },
+    "metrics": {
+        "mcs": 47.5,
+        "srs": 100,
+        "kgq": 40.0,
+        "rrs": 43.33,
+        "ces": 57.71
+    },
+    "started_at": "2026-07-18T16:23:27.533126+00:00",
+    "finished_at": "2026-07-18T16:23:27.533442+00:00",
+    "status": "completed"
+}
